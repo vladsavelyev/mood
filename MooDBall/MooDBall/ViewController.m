@@ -52,14 +52,7 @@
 {
     if(motionManager.accelerometerAvailable) {
         CMAccelerometerData *accelerometerData = motionManager.accelerometerData;
-        label.text = [NSString stringWithFormat:
-                      @"Accelerometer \nx:%f \ny:%f \nz:%f \nBall \nx:%f \ny:%f",
-                      accelerometerData.acceleration.x,
-                      accelerometerData.acceleration.y,
-                      accelerometerData.acceleration.z,
-                      ball.center.x,
-                      ball.center.y];
-        
+        label.text = @"";
         
         CGPoint delta;
         delta.x = accelerometerData.acceleration.x * 10;
