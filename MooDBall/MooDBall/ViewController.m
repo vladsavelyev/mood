@@ -17,21 +17,28 @@
 @synthesize motionManager;
 @synthesize updateTimer;
 @synthesize ball;
+@synthesize mazeView;
 
-- (void)didReceiveMemoryWarning
+-(void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return (interfaceOrientation == UIInterfaceOrientationLandscapeRight);
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
+-(void)loadView {
+    [super loadView];
     
+    maze = [self loadMaze];
+    [(MazeView*)self.view setMaze:maze];
+}
+
+-(void)viewDidLoad {
+    [super viewDidLoad];
+        
     motionManager = [[CMMotionManager alloc]init];
     
     if (motionManager.accelerometerAvailable) {
@@ -48,8 +55,29 @@
                                                   repeats:YES];
 }
 
--(void)accelUpdate
-{
+-(Maze *)loadMaze {
+    int blockWidth = 4;
+    int blockHeight = 4;
+    
+    CGFloat width = CGRectGetWidth(self.view.bounds) / blockWidth;
+    CGFloat height = CGRectGetHeight(self.view.bounds) / blockHeight;
+    
+    maze = [[Maze alloc] initWithWidth: width andHeight: height];
+    
+    int x, y;
+    for (x = 0; x < maze.width; x+=2) {
+        for (y = 0; y < maze.height; y+=2) {
+            [maze setFilledAtX:x andY:y];
+        }
+    }
+    
+    NSLog([maze getAtX:10 andY:12] ? @"YES" : @"NO");
+    NSLog([maze getAtX:10 andY:33] ? @"YES" : @"NO");
+    
+    return maze;
+}
+
+-(void)accelUpdate {
     if(motionManager.accelerometerAvailable) {
         CMAccelerometerData *accelerometerData = motionManager.accelerometerData;
         label.text = @"";
@@ -71,13 +99,7 @@
         } else if (ball.center.y > 320-ballHalfWidth) {
             ball.center = CGPointMake(ball.center.x, 320-ballHalfWidth);
         }
-        
-        
-        
-        
     }
-    
 }
-
 
 @end

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		211E47B1164B945400739F02 /* GreenBall.png in Resources */ = {isa = PBXBuildFile; fileRef = 211E47B0164B945400739F02 /* GreenBall.png */; };
+		211E47B5164BB79B00739F02 /* Maze.m in Sources */ = {isa = PBXBuildFile; fileRef = 211E47B4164BB79B00739F02 /* Maze.m */; };
+		213F98AD164F9AD300C171B2 /* MazeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 213F98AC164F9AD300C171B2 /* MazeView.xib */; };
+		213F98B1164F9B8800C171B2 /* MazeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 213F98B0164F9B8800C171B2 /* MazeView.m */; };
 		27E6B184163D994700ECBE6D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6B183163D994700ECBE6D /* UIKit.framework */; };
 		27E6B186163D994700ECBE6D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6B185163D994700ECBE6D /* Foundation.framework */; };
 		27E6B188163D994700ECBE6D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6B187163D994700ECBE6D /* CoreGraphics.framework */; };
@@ -19,10 +23,15 @@
 		27E6B19D163D994700ECBE6D /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27E6B19B163D994700ECBE6D /* MainStoryboard_iPhone.storyboard */; };
 		27E6B1A3163D994700ECBE6D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E6B1A2163D994700ECBE6D /* ViewController.m */; };
 		27E6B1AA163D9B5F00ECBE6D /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6B1A9163D9B5F00ECBE6D /* CoreMotion.framework */; };
-		27E6B1AC163DA4B900ECBE6D /* GreenBall.png in Resources */ = {isa = PBXBuildFile; fileRef = 27E6B1AB163DA4B900ECBE6D /* GreenBall.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		211E47B0164B945400739F02 /* GreenBall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GreenBall.png; sourceTree = "<group>"; };
+		211E47B3164BB79B00739F02 /* Maze.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Maze.h; sourceTree = "<group>"; };
+		211E47B4164BB79B00739F02 /* Maze.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Maze.m; sourceTree = "<group>"; };
+		213F98AC164F9AD300C171B2 /* MazeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MazeView.xib; sourceTree = "<group>"; };
+		213F98AF164F9B8800C171B2 /* MazeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MazeView.h; sourceTree = "<group>"; };
+		213F98B0164F9B8800C171B2 /* MazeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MazeView.m; sourceTree = "<group>"; };
 		27E6B17F163D994700ECBE6D /* MooDBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MooDBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27E6B183163D994700ECBE6D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		27E6B185163D994700ECBE6D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -40,7 +49,6 @@
 		27E6B1A1163D994700ECBE6D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		27E6B1A2163D994700ECBE6D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		27E6B1A9163D9B5F00ECBE6D /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
-		27E6B1AB163DA4B900ECBE6D /* GreenBall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GreenBall.png; path = ../../../../Downloads/GreenBall.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +103,11 @@
 				27E6B1A1163D994700ECBE6D /* ViewController.h */,
 				27E6B1A2163D994700ECBE6D /* ViewController.m */,
 				27E6B18A163D994700ECBE6D /* Supporting Files */,
+				211E47B3164BB79B00739F02 /* Maze.h */,
+				211E47B4164BB79B00739F02 /* Maze.m */,
+				213F98AC164F9AD300C171B2 /* MazeView.xib */,
+				213F98AF164F9B8800C171B2 /* MazeView.h */,
+				213F98B0164F9B8800C171B2 /* MazeView.m */,
 			);
 			path = MooDBall;
 			sourceTree = "<group>";
@@ -102,7 +115,7 @@
 		27E6B18A163D994700ECBE6D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				27E6B1AB163DA4B900ECBE6D /* GreenBall.png */,
+				211E47B0164B945400739F02 /* GreenBall.png */,
 				27E6B18B163D994700ECBE6D /* MooDBall-Info.plist */,
 				27E6B18C163D994700ECBE6D /* InfoPlist.strings */,
 				27E6B18F163D994700ECBE6D /* main.m */,
@@ -170,7 +183,8 @@
 				27E6B198163D994700ECBE6D /* Default@2x.png in Resources */,
 				27E6B19A163D994700ECBE6D /* Default-568h@2x.png in Resources */,
 				27E6B19D163D994700ECBE6D /* MainStoryboard_iPhone.storyboard in Resources */,
-				27E6B1AC163DA4B900ECBE6D /* GreenBall.png in Resources */,
+				211E47B1164B945400739F02 /* GreenBall.png in Resources */,
+				213F98AD164F9AD300C171B2 /* MazeView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +198,8 @@
 				27E6B190163D994700ECBE6D /* main.m in Sources */,
 				27E6B194163D994700ECBE6D /* AppDelegate.m in Sources */,
 				27E6B1A3163D994700ECBE6D /* ViewController.m in Sources */,
+				211E47B5164BB79B00739F02 /* Maze.m in Sources */,
+				213F98B1164F9B8800C171B2 /* MazeView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +320,7 @@
 				27E6B1A8163D994700ECBE6D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
