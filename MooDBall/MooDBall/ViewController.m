@@ -75,7 +75,15 @@ const int BLOCK_HEIGHT = 10;
 }
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    [super touchesBegan:touches withEvent:event];
+    [self touchesBeganOrMoved:touches withEvent:event];
+}
+
+- (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self touchesBeganOrMoved:touches withEvent:event];
+}
+
+- (void) touchesBeganOrMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    [super touchesMoved:touches withEvent:event];
     
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInView:self.view];
@@ -85,6 +93,7 @@ const int BLOCK_HEIGHT = 10;
     
     [maze setFilledAtX:x andY:y];
     [self.view setNeedsDisplay];
+
 }
 
 - (void) accelUpdate {

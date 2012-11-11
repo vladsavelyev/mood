@@ -16,6 +16,7 @@
 		213F98C4164FC0E700C171B2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 213F98C2164FC0E700C171B2 /* InfoPlist.strings */; };
 		213F98C7164FC0E700C171B2 /* MooDTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 213F98C6164FC0E700C171B2 /* MooDTests.m */; };
 		219DC6741650190800BDA9F4 /* Maze.m in Sources */ = {isa = PBXBuildFile; fileRef = 219DC6731650190800BDA9F4 /* Maze.m */; };
+		219DC67716503B5100BDA9F4 /* MazesListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 219DC67616503B5100BDA9F4 /* MazesListModel.m */; };
 		27E6B184163D994700ECBE6D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6B183163D994700ECBE6D /* UIKit.framework */; };
 		27E6B186163D994700ECBE6D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6B185163D994700ECBE6D /* Foundation.framework */; };
 		27E6B188163D994700ECBE6D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6B187163D994700ECBE6D /* CoreGraphics.framework */; };
@@ -44,6 +45,8 @@
 		213F98C8164FC0E700C171B2 /* MooDTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MooDTests-Prefix.pch"; sourceTree = "<group>"; };
 		219DC6721650190800BDA9F4 /* Maze.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Maze.h; sourceTree = "<group>"; };
 		219DC6731650190800BDA9F4 /* Maze.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Maze.m; sourceTree = "<group>"; };
+		219DC67516503B5100BDA9F4 /* MazesListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MazesListModel.h; sourceTree = "<group>"; };
+		219DC67616503B5100BDA9F4 /* MazesListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MazesListModel.m; sourceTree = "<group>"; };
 		27E6B17F163D994700ECBE6D /* MooDBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MooDBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27E6B183163D994700ECBE6D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		27E6B185163D994700ECBE6D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -153,6 +156,8 @@
 				213F98AC164F9AD300C171B2 /* MazeView.xib */,
 				213F98AF164F9B8800C171B2 /* MazeView.h */,
 				213F98B0164F9B8800C171B2 /* MazeView.m */,
+				219DC67516503B5100BDA9F4 /* MazesListModel.h */,
+				219DC67616503B5100BDA9F4 /* MazesListModel.m */,
 			);
 			path = MooDBall;
 			sourceTree = "<group>";
@@ -296,6 +301,7 @@
 				27E6B1A3163D994700ECBE6D /* ViewController.m in Sources */,
 				213F98B1164F9B8800C171B2 /* MazeView.m in Sources */,
 				219DC6741650190800BDA9F4 /* Maze.m in Sources */,
+				219DC67716503B5100BDA9F4 /* MazesListModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
