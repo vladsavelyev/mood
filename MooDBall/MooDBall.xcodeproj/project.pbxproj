@@ -11,6 +11,13 @@
 		211E47B5164BB79B00739F02 /* Maze.m in Sources */ = {isa = PBXBuildFile; fileRef = 211E47B4164BB79B00739F02 /* Maze.m */; };
 		213F98AD164F9AD300C171B2 /* MazeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 213F98AC164F9AD300C171B2 /* MazeView.xib */; };
 		213F98B1164F9B8800C171B2 /* MazeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 213F98B0164F9B8800C171B2 /* MazeView.m */; };
+		213F98BC164FC0E700C171B2 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 213F98BB164FC0E700C171B2 /* SenTestingKit.framework */; };
+		213F98BD164FC0E700C171B2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6B183163D994700ECBE6D /* UIKit.framework */; };
+		213F98BE164FC0E700C171B2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6B185163D994700ECBE6D /* Foundation.framework */; };
+		213F98C4164FC0E700C171B2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 213F98C2164FC0E700C171B2 /* InfoPlist.strings */; };
+		213F98C7164FC0E700C171B2 /* MooDTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 213F98C6164FC0E700C171B2 /* MooDTests.m */; };
+		213F98CD164FC31F00C171B2 /* MooDBall.app in Resources */ = {isa = PBXBuildFile; fileRef = 27E6B17F163D994700ECBE6D /* MooDBall.app */; };
+		213F98CF164FC32100C171B2 /* MooDBall.app in Resources */ = {isa = PBXBuildFile; fileRef = 27E6B17F163D994700ECBE6D /* MooDBall.app */; };
 		27E6B184163D994700ECBE6D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6B183163D994700ECBE6D /* UIKit.framework */; };
 		27E6B186163D994700ECBE6D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6B185163D994700ECBE6D /* Foundation.framework */; };
 		27E6B188163D994700ECBE6D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6B187163D994700ECBE6D /* CoreGraphics.framework */; };
@@ -32,6 +39,13 @@
 		213F98AC164F9AD300C171B2 /* MazeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MazeView.xib; sourceTree = "<group>"; };
 		213F98AF164F9B8800C171B2 /* MazeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MazeView.h; sourceTree = "<group>"; };
 		213F98B0164F9B8800C171B2 /* MazeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MazeView.m; sourceTree = "<group>"; };
+		213F98BA164FC0E700C171B2 /* MooDTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MooDTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		213F98BB164FC0E700C171B2 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		213F98C1164FC0E700C171B2 /* MooDTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MooDTests-Info.plist"; sourceTree = "<group>"; };
+		213F98C3164FC0E700C171B2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		213F98C5164FC0E700C171B2 /* MooDTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MooDTests.h; sourceTree = "<group>"; };
+		213F98C6164FC0E700C171B2 /* MooDTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MooDTests.m; sourceTree = "<group>"; };
+		213F98C8164FC0E700C171B2 /* MooDTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MooDTests-Prefix.pch"; sourceTree = "<group>"; };
 		27E6B17F163D994700ECBE6D /* MooDBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MooDBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27E6B183163D994700ECBE6D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		27E6B185163D994700ECBE6D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -52,6 +66,16 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		213F98B6164FC0E700C171B2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				213F98BC164FC0E700C171B2 /* SenTestingKit.framework in Frameworks */,
+				213F98BD164FC0E700C171B2 /* UIKit.framework in Frameworks */,
+				213F98BE164FC0E700C171B2 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		27E6B17C163D994700ECBE6D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -66,11 +90,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		213F98BF164FC0E700C171B2 /* MooDTests */ = {
+			isa = PBXGroup;
+			children = (
+				213F98C5164FC0E700C171B2 /* MooDTests.h */,
+				213F98C6164FC0E700C171B2 /* MooDTests.m */,
+				213F98C0164FC0E700C171B2 /* Supporting Files */,
+			);
+			path = MooDTests;
+			sourceTree = "<group>";
+		};
+		213F98C0164FC0E700C171B2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				213F98C1164FC0E700C171B2 /* MooDTests-Info.plist */,
+				213F98C2164FC0E700C171B2 /* InfoPlist.strings */,
+				213F98C8164FC0E700C171B2 /* MooDTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		27E6B174163D994700ECBE6D = {
 			isa = PBXGroup;
 			children = (
 				27E6B1A9163D9B5F00ECBE6D /* CoreMotion.framework */,
 				27E6B189163D994700ECBE6D /* MooDBall */,
+				213F98BF164FC0E700C171B2 /* MooDTests */,
 				27E6B182163D994700ECBE6D /* Frameworks */,
 				27E6B180163D994700ECBE6D /* Products */,
 			);
@@ -80,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				27E6B17F163D994700ECBE6D /* MooDBall.app */,
+				213F98BA164FC0E700C171B2 /* MooDTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -90,6 +136,7 @@
 				27E6B183163D994700ECBE6D /* UIKit.framework */,
 				27E6B185163D994700ECBE6D /* Foundation.framework */,
 				27E6B187163D994700ECBE6D /* CoreGraphics.framework */,
+				213F98BB164FC0E700C171B2 /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -130,6 +177,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		213F98B9164FC0E700C171B2 /* MooDTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 213F98C9164FC0E700C171B2 /* Build configuration list for PBXNativeTarget "MooDTests" */;
+			buildPhases = (
+				213F98B5164FC0E700C171B2 /* Sources */,
+				213F98B6164FC0E700C171B2 /* Frameworks */,
+				213F98B7164FC0E700C171B2 /* Resources */,
+				213F98B8164FC0E700C171B2 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MooDTests;
+			productName = MooDTests;
+			productReference = 213F98BA164FC0E700C171B2 /* MooDTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
 		27E6B17E163D994700ECBE6D /* MooDBall */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 27E6B1A6163D994700ECBE6D /* Build configuration list for PBXNativeTarget "MooDBall" */;
@@ -169,11 +234,21 @@
 			projectRoot = "";
 			targets = (
 				27E6B17E163D994700ECBE6D /* MooDBall */,
+				213F98B9164FC0E700C171B2 /* MooDTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		213F98B7164FC0E700C171B2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				213F98C4164FC0E700C171B2 /* InfoPlist.strings in Resources */,
+				213F98CD164FC31F00C171B2 /* MooDBall.app in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		27E6B17D163D994700ECBE6D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -185,12 +260,37 @@
 				27E6B19D163D994700ECBE6D /* MainStoryboard_iPhone.storyboard in Resources */,
 				211E47B1164B945400739F02 /* GreenBall.png in Resources */,
 				213F98AD164F9AD300C171B2 /* MazeView.xib in Resources */,
+				213F98CF164FC32100C171B2 /* MooDBall.app in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		213F98B8164FC0E700C171B2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		213F98B5164FC0E700C171B2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				213F98C7164FC0E700C171B2 /* MooDTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		27E6B17B163D994700ECBE6D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -206,6 +306,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		213F98C2164FC0E700C171B2 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				213F98C3164FC0E700C171B2 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		27E6B18C163D994700ECBE6D /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -225,6 +333,36 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		213F98CA164FC0E700C171B2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MooDTests/MooDTests-Prefix.pch";
+				INFOPLIST_FILE = "MooDTests/MooDTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		213F98CB164FC0E700C171B2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MooDTests/MooDTests-Prefix.pch";
+				INFOPLIST_FILE = "MooDTests/MooDTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
 		27E6B1A4163D994700ECBE6D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -304,6 +442,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		213F98C9164FC0E700C171B2 /* Build configuration list for PBXNativeTarget "MooDTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				213F98CA164FC0E700C171B2 /* Debug */,
+				213F98CB164FC0E700C171B2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		27E6B179163D994700ECBE6D /* Build configuration list for PBXProject "MooDBall" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

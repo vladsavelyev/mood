@@ -36,6 +36,25 @@
     [(MazeView*)self.view setMaze:maze];
 }
 
+-(Maze *)loadMaze {
+    int blockWidth = 32;
+    int blockHeight = 64;
+    
+    CGFloat width = CGRectGetWidth(self.view.bounds) / blockWidth;
+    CGFloat height = CGRectGetHeight(self.view.bounds) / blockHeight;
+    
+    maze = [[Maze alloc] initWithWidth: width andHeight: height];
+    
+    int x, y;
+    for (x = 0; x < maze.width; x+=2) {
+        for (y = 0; y < maze.height; y+=2) {
+            [maze setFilledAtX:x andY:y];
+        }
+    }
+    
+    return maze;
+}
+
 -(void)viewDidLoad {
     [super viewDidLoad];
         
@@ -53,28 +72,6 @@
                                                  selector:@selector(accelUpdate)
                                                  userInfo:nil
                                                   repeats:YES];
-}
-
--(Maze *)loadMaze {
-    int blockWidth = 4;
-    int blockHeight = 4;
-    
-    CGFloat width = CGRectGetWidth(self.view.bounds) / blockWidth;
-    CGFloat height = CGRectGetHeight(self.view.bounds) / blockHeight;
-    
-    maze = [[Maze alloc] initWithWidth: width andHeight: height];
-    
-    int x, y;
-    for (x = 0; x < maze.width; x+=2) {
-        for (y = 0; y < maze.height; y+=2) {
-            [maze setFilledAtX:x andY:y];
-        }
-    }
-    
-    NSLog([maze getAtX:10 andY:12] ? @"YES" : @"NO");
-    NSLog([maze getAtX:10 andY:33] ? @"YES" : @"NO");
-    
-    return maze;
 }
 
 -(void)accelUpdate {
