@@ -17,12 +17,14 @@
 @property (atomic) size_t width;
 @property (atomic) size_t height;
 
--(id) initWithWidth: (int)theWidth andHeight: (int)theHeight;
+- (id) initWithWidth: (int)theWidth andHeight: (int)theHeight;
 
--(void) setFreeAtX: (int)x andY: (int)y;
--(void) setFilledAtX: (int)x andY: (int)y;
--(BOOL) getAtX: (int)x andY: (int)y;
+- (void) dealloc;
 
--(void) drawWithContext: (CGContextRef)ctx widthInPixels: (CGFloat)widthInPixels andHeightInPixels: (CGFloat)heightInPixels;
+- (void) setFreeAtX: (int)x andY: (int)y;
+
+- (void) setFilledAtX: (int)x andY: (int)y;
+
+- (BOOL) getAtX: (int)x andY: (int)y;
 
 @end

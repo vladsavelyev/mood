@@ -12,18 +12,23 @@
 #import "MazeView.h"
 
 @interface ViewController : UIViewController {
-    IBOutlet UILabel *label;
+    Maze *maze;
+        
+    IBOutlet UIImageView *ballView;
+    IBOutlet MazeView *mazeView;
+    
+    IBOutlet UILabel *noAccelerometerLabel;
     CMMotionManager *motionManager;
     NSTimer *updateTimer;
-    IBOutlet UIImageView *ball;
-    IBOutlet MazeView *mazeView;
-    Maze *maze;
 }
 
-@property (retain, nonatomic) IBOutlet UILabel *label;
+@property (retain, nonatomic) Maze *maze;
+
+@property (retain, nonatomic) IBOutlet UIImageView *ballView;
+@property (retain, nonatomic) IBOutlet MazeView *mazeView;
+
+@property (retain, nonatomic) IBOutlet UILabel *noAccelerometerLabel;
 @property (retain, nonatomic) CMMotionManager *motionManager;
 @property (retain, nonatomic) NSTimer *updateTimer;
-@property (retain, nonatomic) IBOutlet UIImageView *ball;
-@property (retain, nonatomic) IBOutlet MazeView *mazeView;
 
 @end

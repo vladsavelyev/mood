@@ -10,18 +10,42 @@
 
 @implementation MazeView
 
--(void)setMaze:(Maze*)theMaze {
-    maze = theMaze;
+@synthesize maze;
+
+- (void) drawRect:(CGRect) rect {
+    if (self.maze) {
+        CGContextRef context = UIGraphicsGetCurrentContext();
+    
+        CGFloat widthInPixels = CGRectGetWidth(self.bounds);
+        CGFloat heightInPixels = CGRectGetHeight(self.bounds);
+    
+        CGFloat blockWidth = widthInPixels / maze.width;
+        CGFloat blockHeight = heightInPixels / maze.height;
+        
+        int x, y;
+        for (x = 0; x < maze.width; x++) {
+            for (y = 0; y < maze.height; y++) {
+                if ([maze getAtX:x andY:y]) {
+                    CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 1.0);
+                    CGContextFillRect(context, CGRectMake(x * blockWidth, y * blockHeight, blockWidth, blockHeight));
+                }
+            }
+        }
+    }
 }
 
--(void)drawRect:(CGRect)rect {
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    CGFloat width = CGRectGetWidth(self.bounds);
-    CGFloat height = CGRectGetHeight(self.bounds);
-        
-    if (maze)
-        [maze drawWithContext:context widthInPixels:width andHeightInPixels:height];
-}
+//- (void) observeValueForKeyPath:(NSString *) keyPath
+//                       ofObject:(id) object
+//                         change:(NSDictionary *) change
+//                        context:(void *) context {
+//    if ([keyPath isEqual:@"maze"]) {
+//        maze = [change valueForKey:NSKeyValueChangeNewKey];
+//        [self setNeedsDisplay];
+//    }    
+//    [super observeValueForKeyPath:keyPath
+//                         ofObject:object
+//                           change:change
+//                          context:context];
+//}
 
 @end

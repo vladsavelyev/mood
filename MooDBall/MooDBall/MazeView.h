@@ -10,9 +10,9 @@
 #import "Maze.h"
 
 @interface MazeView : UIView {
-    Maze * maze;
+    Maze *maze;
 }
 
--(void) setMaze:(Maze*)maze;
+@property (nonatomic, retain) Maze *maze;
 
 @end

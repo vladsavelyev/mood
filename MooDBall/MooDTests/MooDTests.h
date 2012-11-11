@@ -7,10 +7,10 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-#import "Maze.h"
+#import "MazeModel.h"
 
 @interface MooDTests : SenTestCase {
-    Maze * maze;
+    MazeModel * maze;
     int width;
     int height;
 }
