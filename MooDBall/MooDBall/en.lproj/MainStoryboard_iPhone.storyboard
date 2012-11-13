@@ -46,7 +46,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="GreenBall.png" width="32" height="32"/>
+        <image name="GreenBall.png" width="112" height="112"/>
     </resources>
     <classes>
         <class className="MazeView" superclassName="UIView">

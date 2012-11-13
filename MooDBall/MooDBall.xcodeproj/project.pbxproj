@@ -420,10 +420,12 @@
 		27E6B1A7163D994700ECBE6D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: М М (97RR5K52XY)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MooDBall/MooDBall-Prefix.pch";
 				INFOPLIST_FILE = "MooDBall/MooDBall-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "F212D282-D061-4128-B0B8-A61364EB905E";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -432,10 +434,12 @@
 		27E6B1A8163D994700ECBE6D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: М М (97RR5K52XY)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MooDBall/MooDBall-Prefix.pch";
 				INFOPLIST_FILE = "MooDBall/MooDBall-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "F212D282-D061-4128-B0B8-A61364EB905E";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

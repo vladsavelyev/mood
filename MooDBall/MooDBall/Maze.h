@@ -17,7 +17,7 @@
 @property (atomic) size_t width;
 @property (atomic) size_t height;
 
-- (id) initWithWidth: (int)theWidth andHeight: (int)theHeight;
+- (id) initWithWidth: (size_t)theWidth andHeight: (int)theHeight;
 
 - (void) dealloc;
 

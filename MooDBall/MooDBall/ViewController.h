@@ -20,6 +20,9 @@
     IBOutlet UILabel *noAccelerometerLabel;
     CMMotionManager *motionManager;
     NSTimer *updateTimer;
+
+    CGFloat view_width;
+    CGFloat view_height;
 }
 
 @property (retain, nonatomic) Maze *maze;

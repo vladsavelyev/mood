@@ -15,11 +15,14 @@
 @synthesize width;
 @synthesize height;
 
-- (id) initWithWidth: (int)theWidth andHeight: (int)theHeight {
+- (id) initWithWidth: (size_t)theWidth andHeight: (size_t)theHeight {
     if (self = [super init]) {
         width = theWidth;
         height = theHeight;
         points = malloc(width * height * sizeof(BOOL));
+        for (int i = 0; i < width * height; i++) {
+            points[i] = NO;
+        }
     }
     return self;
 }
