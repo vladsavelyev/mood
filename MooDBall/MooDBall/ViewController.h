@@ -21,8 +21,8 @@
     CMMotionManager *motionManager;
     NSTimer *updateTimer;
 
-    CGFloat view_width;
-    CGFloat view_height;
+    CGFloat viewWidth;
+    CGFloat viewHeight;
 }
 
 @property (retain, nonatomic) Maze *maze;

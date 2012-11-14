@@ -15,8 +15,9 @@ profile
 *.moved-aside
 
 *.DS_Store
+.DS_Store
 MooDBall/MooDBall/.DS_Store
-MooDBall/MoodTests.DS_Store
+MooDBall/MoodTests/.DS_Store
 MooDBall/.DS_Store
 MoodBall/.idea/.DS_Store
 MoodBall/.idea/.name
