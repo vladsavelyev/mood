@@ -20,9 +20,22 @@
     IBOutlet UILabel *noAccelerometerLabel;
     CMMotionManager *motionManager;
     NSTimer *updateTimer;
+    
+    long curTime;
+    long sumTime;
+
+    long curTouches;
+    long sumTouches;
 
     CGFloat viewWidth;
     CGFloat viewHeight;
+
+    CGPoint ballCenter;
+    CGPoint ballStartPosition;
+
+    __weak IBOutlet UILabel *timeLabel;
+    __weak IBOutlet UILabel *touchLabel;
+    __weak IBOutlet UIButton *startButton;
 }
 
 @property (retain, nonatomic) Maze *maze;

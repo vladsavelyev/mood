@@ -25,30 +25,81 @@
 const CGFloat BLOCK_WIDTH = 10;
 const CGFloat BLOCK_HEIGHT = 10;
 
-- (void) didReceiveMemoryWarning {
+const CGFloat statusBarWidth = 32;
+
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return (interfaceOrientation == UIInterfaceOrientationLandscapeRight);
 }
 
-- (Maze *) loadMaze {
+- (Maze *)loadMaze {
     CGFloat width = viewWidth / BLOCK_WIDTH;
     CGFloat height = viewHeight / BLOCK_HEIGHT;
 
     maze = [[Maze alloc] initWithWidth: (size_t) width andHeight: (size_t) height];
+
+    size_t statusBarBlocksWidth = 0;
+    if (fmod(statusBarWidth, BLOCK_WIDTH) == 0) {
+        statusBarBlocksWidth = (size_t) (statusBarWidth / BLOCK_WIDTH);
+    } else {
+        statusBarBlocksWidth = (size_t) ((size_t) statusBarWidth / BLOCK_WIDTH + 1);
+    }
+
+    for (size_t x = 0; x < width; x++) {
+        for (size_t y = (size_t) (height - statusBarBlocksWidth); y < height; y++) {
+            [maze setFilledAtX:x andY:y];
+        }
+    }
+
     return maze;
 }
 
-- (void) viewDidLoad {
+- (void)startHandler {
+    if ([startButton.titleLabel.text isEqualToString:@"Start"]) {
+        updateTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f / 60.0f
+                                                       target:self
+                                                     selector:@selector(accelerometerUpdate)
+                                                     userInfo:nil
+                                                      repeats:YES];
+        curTime = 0;
+        curTouches = 0;
+
+        [timeLabel setText:@"Time: 0"];
+        [touchLabel setText:@"Touches: 0"];
+
+        [startButton setTitle:@"Stop" forState:UIControlStateNormal];
+    } else {
+        [self stop];
+    }
+}
+
+- (void)stop {
+    [updateTimer invalidate];
+    [startButton setTitle:@"Start" forState:UIControlStateNormal];
+}
+
+- (void)viewDidLoad {
     [super viewDidLoad];
+
+//    [startButton setTitle:@"Stop" forState:UIControlStateNormal];
+    [startButton addTarget:self action:@selector(startHandler) forControlEvents:UIControlEventTouchUpInside];
 
     // CGRectGetHeight and CGRectGetWidth return portrait orientation bounds,
     // but we need to work on landscape one. That's why I replaced them.
     viewWidth = CGRectGetHeight(self.view.bounds);
-    viewHeight = CGRectGetWidth(self.view.bounds);
+    viewHeight = CGRectGetWidth(self.view.bounds); // Fix height for status bar
+
+    ballStartPosition = CGPointMake(16, 160);
+
+    curTime = 0;
+    sumTime = 0;
+
+    curTouches = 0;
+    sumTouches = 0;
 
     maze = [self loadMaze];
     [(MazeView*)self.view setMaze:maze];
@@ -62,22 +113,20 @@ const CGFloat BLOCK_HEIGHT = 10;
         noAccelerometerLabel.text = @"No accelerometer";
     }
 
-    updateTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f / 60.0f
-                                                   target:self
-                                                 selector:@selector(accelUpdate)
-                                                 userInfo:nil
-                                                  repeats:YES];
+    ballCenter = ballStartPosition;
+    ballView.center = ballCenter;
+    NSLog(@"x = %f, y = %f", ballCenter.x, ballCenter.y);
 }
 
-- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [self touchesBeganOrMoved:touches withEvent:event];
 }
 
-- (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     [self touchesBeganOrMoved:touches withEvent:event];
 }
 
-- (void) touchesBeganOrMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesBeganOrMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     [super touchesMoved:touches withEvent:event];
 
     UITouch *touch = [touches anyObject];
@@ -90,22 +139,30 @@ const CGFloat BLOCK_HEIGHT = 10;
     [self.view setNeedsDisplay];
 }
 
-- (void) accelUpdate {
-    if(motionManager.accelerometerAvailable) {
+- (void)accelerometerUpdate {
+    NSLog(@"x = %f, y = %f", ballView.center.x, ballView.center.y);
+    [ballView setCenter: ballCenter];
+
+    long t = time(0);
+    if (curTime != 0) sumTime += (t - curTime);
+    curTime = t;
+
+    timeLabel.text = [NSString stringWithFormat:@"Time: %ld", sumTime];
+
+    if (motionManager.accelerometerAvailable) {
         CGFloat ballRadius = ballView.bounds.size.width / 2;                          // 16 = (33 - 1) / 2
-        CGPoint oldPos = ballView.center;
-        CGFloat x = oldPos.x;
-        CGFloat y = oldPos.y;
+        CGPoint prevPos = ballCenter;
 
         CMAccelerometerData *accelerometerData = motionManager.accelerometerData;
         noAccelerometerLabel.text = @"";
+
         CGPoint delta;
         delta.y = -(CGFloat) (accelerometerData.acceleration.x * 10);                   // Replace x and y to satisfy
         delta.x = -(CGFloat) (accelerometerData.acceleration.y * 10);                   // landscape orientation.
 
-
-        x += delta.x;
-        y += delta.y;
+        CGPoint nextPos = CGPointMake(prevPos.x + delta.x, prevPos.y + delta.y);
+        CGFloat x = nextPos.x;
+        CGFloat y = nextPos.y;
 
         // Moving right (0 --> 480)
         if (x > viewWidth - ballRadius) {                                           // Screen border?
@@ -137,17 +194,44 @@ const CGFloat BLOCK_HEIGHT = 10;
         }
 
         CGFloat diagonalPiece = (CGFloat) (ballRadius / sqrt(2));
+//        if (delta.x > 0 && del) {
+//
+//        }
+
         if ([self checkIfMazeInPoint:CGPointMake(x + diagonalPiece, y + diagonalPiece)] ||   // right-down
-                [self checkIfMazeInPoint:CGPointMake(x + diagonalPiece, y - diagonalPiece)] ||   // right-up
-                [self checkIfMazeInPoint:CGPointMake(x - diagonalPiece, y + diagonalPiece)] ||   // left-down
-                [self checkIfMazeInPoint:CGPointMake(x - diagonalPiece, y - diagonalPiece)]) {   // left-up
+            [self checkIfMazeInPoint:CGPointMake(x + diagonalPiece, y - diagonalPiece)] ||   // right-up
+            [self checkIfMazeInPoint:CGPointMake(x - diagonalPiece, y + diagonalPiece)] ||   // left-down
+            [self checkIfMazeInPoint:CGPointMake(x - diagonalPiece, y - diagonalPiece)]) {   // left-up
             x -= delta.x;
             y -= delta.y;
         }
 
 
-        ballView.center = CGPointMake(x, y);
+        if ((nextPos.x != x || nextPos.y != y) &&    // touched
+            (prevPos.x != x || prevPos.y != y)) {      // not to count multiple touches when the ball stays
+            curTouches += 1;
+//            [touchLabel setText:[NSString stringWithFormat:@"Touches: %ld", curTouches]];
+        }
+
+        ballCenter = CGPointMake(x, y);
+
+        if (ballCenter.x + ballRadius == viewWidth && ballCenter.y - ballRadius == 0) {   // Finish point
+//            NSString *message = [NSString stringWithFormat:@"Your time is %d",sumTime];
+//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congrats"
+//                                                            message:message
+//                                                           delegate:nil
+//                                                  cancelButtonTitle:@"OK"
+//                                                  otherButtonTitles:nil];
+//            [alert show];
+
+            [self stop];
+            sumTime = 0;
+            sumTouches = 0;
+        }
     }
+
+    [ballView setCenter: ballCenter];
+    [ballView setNeedsDisplay];
 }
 
 - (CGPoint)correctIfMazeInPoint: (CGPoint) point
