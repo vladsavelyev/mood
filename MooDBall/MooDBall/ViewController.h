@@ -10,7 +10,9 @@
 #import <CoreMotion/CoreMotion.h>
 #import "Maze.h"
 #import "MazeView.h"
+#import "DatabaseManager.h"
 
+#import "RecordTableViewController.h"
 @interface ViewController : UIViewController {
     Maze *maze;
         
@@ -20,6 +22,7 @@
     IBOutlet UILabel *noAccelerometerLabel;
     CMMotionManager *motionManager;
     NSTimer *updateTimer;
+    DatabaseManager *databaseManager;
     
     long curTime;
     long sumTime;
@@ -46,5 +49,14 @@
 @property (retain, nonatomic) IBOutlet UILabel *noAccelerometerLabel;
 @property (retain, nonatomic) CMMotionManager *motionManager;
 @property (retain, nonatomic) NSTimer *updateTimer;
+
+@property (retain, nonatomic) DatabaseManager *databaseManager;
+@property (nonatomic, retain) UITableView *listView;
+
+- (IBAction)addRecord;
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender;
+#pragma mark - RecordTableViewControllerDelegate
+- (void)recordTableViewControllerDidCancel:
+        (RecordTableViewController *)controller;
 
 @end

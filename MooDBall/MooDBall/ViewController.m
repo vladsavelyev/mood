@@ -6,6 +6,8 @@
 //
 
 #import "ViewController.h"
+#import "Record.h"
+#import "RecordTableViewController.h"
 
 //@interface ViewController ()
 //
@@ -116,6 +118,10 @@ const CGFloat statusBarWidth = 32;
     ballCenter = ballStartPosition;
     ballView.center = ballCenter;
     NSLog(@"x = %f, y = %f", ballCenter.x, ballCenter.y);
+
+    databaseManager = [[DatabaseManager alloc] init];
+    [databaseManager createEditableCopyOfDatabaseIfNeeded];
+    [databaseManager initializeDatabase];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -216,13 +222,22 @@ const CGFloat statusBarWidth = 32;
         ballCenter = CGPointMake(x, y);
 
         if (ballCenter.x + ballRadius == viewWidth && ballCenter.y - ballRadius == 0) {   // Finish point
-//            NSString *message = [NSString stringWithFormat:@"Your time is %d",sumTime];
-//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congrats"
-//                                                            message:message
-//                                                           delegate:nil
-//                                                  cancelButtonTitle:@"OK"
-//                                                  otherButtonTitles:nil];
-//            [alert show];
+
+            NSDate *date = [NSDate date];
+            NSString *strDate = [NSString stringWithFormat:@"%@",date];
+
+
+            Record *record = [[Record alloc] initWithParams:strDate andTime:sumTime
+                                                 andTouches:sumTouches andMood:@"happy"
+                                                andDatabase:databaseManager.database];
+            [databaseManager.records addObject:record];
+            NSString *message = [NSString stringWithFormat:@"Your time is %d",sumTime];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congrats"
+                                                            message:message
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
 
             [self stop];
             sumTime = 0;
@@ -299,6 +314,29 @@ const CGFloat statusBarWidth = 32;
 
 - (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"showResults"])
+    {
+        UINavigationController *navigationController =
+                segue.destinationViewController;
+
+        RecordTableViewController *
+                recordTableViewController =
+                [[navigationController viewControllers]
+                        objectAtIndex:0];
+        recordTableViewController.delegate = self;
+        recordTableViewController.results = databaseManager.records;
+    }
+}
+
+#pragma mark - RecordTableViewControllerDelegate
+- (void)recordTableViewControllerDidCancel:
+        (RecordTableViewController *)controller
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
