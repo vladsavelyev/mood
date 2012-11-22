@@ -26,8 +26,16 @@
         for (x = 0; x < maze.width; x++) {
             for (y = 0; y < maze.height; y++) {
                 if ([maze getAtX:x andY:y]) {
+                    CGRect square = CGRectMake(x * blockWidth, y * blockHeight, blockWidth, blockHeight);
+
+                    // fill with black
                     CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 1.0);
-                    CGContextFillRect(context, CGRectMake(x * blockWidth, y * blockHeight, blockWidth, blockHeight));
+                    CGContextFillRect(context, square);
+
+                    // put image
+                    // UIImageView *texture = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wall.jpg"]];
+                    // texture.frame = square;
+                    // [self addSubview:texture];
                 }
             }
         }

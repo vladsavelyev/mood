@@ -29,11 +29,9 @@
 		27E6B19D163D994700ECBE6D /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27E6B19B163D994700ECBE6D /* MainStoryboard_iPhone.storyboard */; };
 		27E6B1A3163D994700ECBE6D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E6B1A2163D994700ECBE6D /* ViewController.m */; };
 		27E6B1AA163D9B5F00ECBE6D /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6B1A9163D9B5F00ECBE6D /* CoreMotion.framework */; };
-		2847B2D1C78EAFD56E4D8DF1 /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2847B2A7258D02B5BFDCD362 /* DatabaseManager.m */; };
-		2847B30734FC86C93C7D2499 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2847B49A62C0BE2BEDA7DBA1 /* libsqlite3.dylib */; };
-		2847B3CF4ECCF2BC79273EE6 /* Record.m in Sources */ = {isa = PBXBuildFile; fileRef = 2847B2CD38A092C2B7E49BD9 /* Record.m */; };
-		2847B5C12AA8F2C184C3E928 /* records_.sql in Resources */ = {isa = PBXBuildFile; fileRef = 2847BD13D307D995C8711B43 /* records_.sql */; };
-		2847BFA746CCA3B54D8B8AF1 /* RecordTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2847B1AFBA35898F0B3BE5BA /* RecordTableViewController.m */; };
+		5B6E4110D7B1BCBAA3546865 /* wall.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B6E43402B8A57155D0D4151 /* wall.jpg */; };
+		5B6E44C0ED392D7B5565F56C /* Record.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E4E53CC4636AA8B9522F4 /* Record.m */; };
+		5B6E4BF3AD2AD9F0AE412B13 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B6E4EA531A2DADF5792D764 /* libsqlite3.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,14 +67,10 @@
 		27E6B1A1163D994700ECBE6D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		27E6B1A2163D994700ECBE6D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		27E6B1A9163D9B5F00ECBE6D /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
-		2847B1AFBA35898F0B3BE5BA /* RecordTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordTableViewController.m; sourceTree = "<group>"; };
-		2847B2A7258D02B5BFDCD362 /* DatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseManager.m; sourceTree = "<group>"; };
-		2847B2CD38A092C2B7E49BD9 /* Record.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Record.m; sourceTree = "<group>"; };
-		2847B380F1B41E0F407AF8FD /* Record.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Record.h; sourceTree = "<group>"; };
-		2847B49A62C0BE2BEDA7DBA1 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		2847B5DDBE72907048514AE8 /* RecordTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordTableViewController.h; sourceTree = "<group>"; };
-		2847BCEAC8993F6FC810F54F /* DatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseManager.h; sourceTree = "<group>"; };
-		2847BD13D307D995C8711B43 /* records_.sql */ = {isa = PBXFileReference; lastKnownFileType = file.sql; path = records_.sql; sourceTree = "<group>"; };
+		5B6E43402B8A57155D0D4151 /* wall.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wall.jpg; sourceTree = "<group>"; };
+		5B6E4D946F57F1252616DD88 /* Record.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Record.h; sourceTree = "<group>"; };
+		5B6E4E53CC4636AA8B9522F4 /* Record.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Record.m; sourceTree = "<group>"; };
+		5B6E4EA531A2DADF5792D764 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +92,7 @@
 				27E6B184163D994700ECBE6D /* UIKit.framework in Frameworks */,
 				27E6B186163D994700ECBE6D /* Foundation.framework in Frameworks */,
 				27E6B188163D994700ECBE6D /* CoreGraphics.framework in Frameworks */,
-				2847B30734FC86C93C7D2499 /* libsqlite3.dylib in Frameworks */,
+				5B6E4BF3AD2AD9F0AE412B13 /* libsqlite3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,8 +127,6 @@
 				213F98BF164FC0E700C171B2 /* MooDTests */,
 				27E6B182163D994700ECBE6D /* Frameworks */,
 				27E6B180163D994700ECBE6D /* Products */,
-				2847B2CD38A092C2B7E49BD9 /* Record.m */,
-				2847B380F1B41E0F407AF8FD /* Record.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -154,7 +146,7 @@
 				27E6B185163D994700ECBE6D /* Foundation.framework */,
 				27E6B187163D994700ECBE6D /* CoreGraphics.framework */,
 				213F98BB164FC0E700C171B2 /* SenTestingKit.framework */,
-				2847B49A62C0BE2BEDA7DBA1 /* libsqlite3.dylib */,
+				5B6E4EA531A2DADF5792D764 /* libsqlite3.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -175,11 +167,8 @@
 				213F98B0164F9B8800C171B2 /* MazeView.m */,
 				219DC67516503B5100BDA9F4 /* MazesListModel.h */,
 				219DC67616503B5100BDA9F4 /* MazesListModel.m */,
-				2847B2A7258D02B5BFDCD362 /* DatabaseManager.m */,
-				2847BCEAC8993F6FC810F54F /* DatabaseManager.h */,
-				2847BD13D307D995C8711B43 /* records_.sql */,
-				2847B1AFBA35898F0B3BE5BA /* RecordTableViewController.m */,
-				2847B5DDBE72907048514AE8 /* RecordTableViewController.h */,
+				5B6E4D946F57F1252616DD88 /* Record.h */,
+				5B6E4E53CC4636AA8B9522F4 /* Record.m */,
 			);
 			path = MooDBall;
 			sourceTree = "<group>";
@@ -195,6 +184,7 @@
 				27E6B195163D994700ECBE6D /* Default.png */,
 				27E6B197163D994700ECBE6D /* Default@2x.png */,
 				27E6B199163D994700ECBE6D /* Default-568h@2x.png */,
+				5B6E43402B8A57155D0D4151 /* wall.jpg */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -284,7 +274,7 @@
 				27E6B19D163D994700ECBE6D /* MainStoryboard_iPhone.storyboard in Resources */,
 				211E47B1164B945400739F02 /* GreenBall.png in Resources */,
 				213F98AD164F9AD300C171B2 /* MazeView.xib in Resources */,
-				2847B5C12AA8F2C184C3E928 /* records_.sql in Resources */,
+				5B6E4110D7B1BCBAA3546865 /* wall.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,9 +315,7 @@
 				213F98B1164F9B8800C171B2 /* MazeView.m in Sources */,
 				219DC6741650190800BDA9F4 /* Maze.m in Sources */,
 				219DC67716503B5100BDA9F4 /* MazesListModel.m in Sources */,
-				2847B2D1C78EAFD56E4D8DF1 /* DatabaseManager.m in Sources */,
-				2847B3CF4ECCF2BC79273EE6 /* Record.m in Sources */,
-				2847BFA746CCA3B54D8B8AF1 /* RecordTableViewController.m in Sources */,
+				5B6E44C0ED392D7B5565F56C /* Record.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,12 +434,12 @@
 		27E6B1A7163D994700ECBE6D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Fedor Korotkov (ANA7825HHM)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: М М (97RR5K52XY)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MooDBall/MooDBall-Prefix.pch";
 				INFOPLIST_FILE = "MooDBall/MooDBall-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0B35F8E0-9C12-4178-BFDE-94CB9B1837D6";
+				PROVISIONING_PROFILE = "F212D282-D061-4128-B0B8-A61364EB905E";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -460,12 +448,12 @@
 		27E6B1A8163D994700ECBE6D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Fedor Korotkov (ANA7825HHM)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: М М (97RR5K52XY)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MooDBall/MooDBall-Prefix.pch";
 				INFOPLIST_FILE = "MooDBall/MooDBall-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0B35F8E0-9C12-4178-BFDE-94CB9B1837D6";
+				PROVISIONING_PROFILE = "F212D282-D061-4128-B0B8-A61364EB905E";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
