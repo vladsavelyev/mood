@@ -37,7 +37,7 @@
         // Компилируем запрос в байткод перед отправкой в базу данных
         if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
-                int primaryKey = sqlite3_column_int(statement, 0);
+                int primaryKey = sqlite3_column_int(statement, 5);
                 unsigned char const *date = sqlite3_column_text(statement, 1);
                 int time = sqlite3_column_int(statement, 2);
                 int touches = sqlite3_column_int(statement, 3);

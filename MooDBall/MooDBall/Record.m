@@ -36,10 +36,10 @@ static sqlite3_stmt *insert_statement = nil;
             }
         }
 
-        sqlite3_bind_text(update_statement, 1, [date UTF8String], -1, SQLITE_TRANSIENT);
-        sqlite3_bind_int(update_statement, 2, time);
-        sqlite3_bind_int(update_statement, 3, touches);
-        sqlite3_bind_text(update_statement, 4, [mood UTF8String], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insert_statement, 1, [date UTF8String], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_int(insert_statement, 2, time);
+        sqlite3_bind_int(insert_statement, 3, touches);
+        sqlite3_bind_text(insert_statement, 4, [mood UTF8String], -1, SQLITE_TRANSIENT);
 
 
         if (sqlite3_step(insert_statement) == SQLITE_DONE) {
