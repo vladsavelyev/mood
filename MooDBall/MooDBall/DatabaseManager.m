@@ -38,8 +38,16 @@
         if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 int primaryKey = sqlite3_column_int(statement, 0);
+                unsigned char const *date = sqlite3_column_text(statement, 1);
+                int time = sqlite3_column_int(statement, 2);
+                int touches = sqlite3_column_int(statement, 3);
+                unsigned char const *mood = sqlite3_column_text(statement, 4);
 
                 Record *record = [[Record alloc] initWithIdentifier:primaryKey database:database];
+                record.date = [NSString stringWithFormat:@"%s",date];
+                record.mood = [NSString stringWithFormat:@"%s",mood];
+                record.time = time;
+                record.touches = touches;
                 [records addObject:record];
             }
         }
