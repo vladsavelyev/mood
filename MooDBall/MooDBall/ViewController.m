@@ -24,6 +24,9 @@
 @synthesize motionManager;
 @synthesize updateTimer;
 
+@synthesize delegate;
+@synthesize mood;
+
 const CGFloat BLOCK_WIDTH = 10;
 const CGFloat BLOCK_HEIGHT = 10;
 
@@ -228,7 +231,7 @@ const CGFloat statusBarWidth = 32;
 
 
             Record *record = [[Record alloc] initWithParams:strDate andTime:sumTime
-                                                 andTouches:sumTouches andMood:@"happy"
+                                                 andTouches:sumTouches andMood:mood
                                                 andDatabase:databaseManager.database];
             [databaseManager.records addObject:record];
             NSString *message = [NSString stringWithFormat:@"Your time is %d",sumTime];
@@ -338,5 +341,6 @@ const CGFloat statusBarWidth = 32;
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 
 @end

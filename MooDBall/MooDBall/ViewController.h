@@ -13,6 +13,9 @@
 #import "DatabaseManager.h"
 
 #import "RecordTableViewController.h"
+
+@class AskViewController;
+
 @interface ViewController : UIViewController {
     Maze *maze;
         
@@ -23,6 +26,7 @@
     CMMotionManager *motionManager;
     NSTimer *updateTimer;
     DatabaseManager *databaseManager;
+    NSString *mood;
     
     long curTime;
     long sumTime;
@@ -42,6 +46,7 @@
 }
 
 @property (retain, nonatomic) Maze *maze;
+@property (retain, nonatomic) NSString *mood;
 
 @property (retain, nonatomic) IBOutlet UIImageView *ballView;
 @property (retain, nonatomic) IBOutlet MazeView *mazeView;
@@ -52,8 +57,8 @@
 
 @property (retain, nonatomic) DatabaseManager *databaseManager;
 @property (nonatomic, retain) UITableView *listView;
+@property (nonatomic, weak) id  delegate;
 
-- (IBAction)addRecord;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender;
 #pragma mark - RecordTableViewControllerDelegate
 - (void)recordTableViewControllerDidCancel:
