@@ -15,7 +15,7 @@
 
 @implementation ViewController
 
-@synthesize maze;
+@synthesize maze;           
 
 @synthesize ballView;
 @synthesize mazeView;
@@ -27,8 +27,8 @@
 @synthesize delegate;
 @synthesize mood;
 
-const CGFloat BLOCK_WIDTH = 10;
-const CGFloat BLOCK_HEIGHT = 10;
+const CGFloat BLOCK_WIDTH = 20;
+const CGFloat BLOCK_HEIGHT = 20;
 
 const CGFloat statusBarWidth = 32;
 
