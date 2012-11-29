@@ -8,13 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
+@class ViewController;
+
 @interface AskViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate> {
     NSMutableArray *moods;
     NSString *mood;
 }
 
 @property (weak, nonatomic) IBOutlet UIPickerView *moodChooser;
+@property (nonatomic, weak) id  delegate;
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender;
 
+#pragma mark - ViewControllerDelegate
+- (void)viewControllerDidCancel:
+        (ViewController *)controller;
 @end

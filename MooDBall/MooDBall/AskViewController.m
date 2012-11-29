@@ -10,6 +10,7 @@
 #import "ViewController.h"
 
 @implementation AskViewController
+@synthesize delegate;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -19,6 +20,7 @@
     [moods addObject:@"sad"];
     [moods addObject:@"normal"];
     [moods addObject:@"angry"];
+    mood = [moods objectAtIndex:0];
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)thePickerView {
@@ -50,6 +52,13 @@
         viewController.delegate = self;
         viewController.mood = mood;
     }
+}
+
+#pragma mark - ViewControllerDelegate
+- (void)viewControllerDidCancel:
+        (ViewController *)controller
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

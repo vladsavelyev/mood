@@ -63,6 +63,11 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uYj-Bz-KgU">
                                 <items>
                                     <navigationItem title="MooD" id="26Q-cv-VvM">
+                                        <barButtonItem key="leftBarButtonItem" title="Set mood" id="jci-aU-P24">
+                                            <connections>
+                                                <action selector="cancel:" destination="2" id="lqh-MB-HSb"/>
+                                            </connections>
+                                        </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Results" id="FdY-Rf-wOR">
                                             <connections>
                                                 <segue destination="Jkd-Ka-QKh" kind="modal" identifier="showResults" id="6ok-0q-X0b"/>
@@ -1122,6 +1127,7 @@
         <class className="ViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
             <relationships>
+                <relationship kind="action" name="cancel:"/>
                 <relationship kind="outlet" name="ballView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="mazeView" candidateClass="MazeView"/>
                 <relationship kind="outlet" name="noAccelerometerLabel" candidateClass="UILabel"/>

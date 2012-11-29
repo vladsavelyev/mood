@@ -62,10 +62,10 @@
 
 - (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [Record finalizeStatements];
     if (sqlite3_close(database) != SQLITE_OK) {
         NSAssert1(0, @"Error: failed to close database with message '%s'.", sqlite3_errmsg(database));
     }
-    [Record finalizeStatements];
 }
 
 -(void)createEditableCopyOfDatabaseIfNeeded {

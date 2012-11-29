@@ -41,6 +41,11 @@ const CGFloat statusBarWidth = 32;
     return (interfaceOrientation == UIInterfaceOrientationLandscapeRight);
 }
 
+- (IBAction)cancel:(id)sender
+{
+    [self.delegate viewControllerDidCancel:self];
+}
+
 - (Maze *)loadMaze {
     CGFloat width = viewWidth / BLOCK_WIDTH;
     CGFloat height = viewHeight / BLOCK_HEIGHT;
@@ -227,8 +232,9 @@ const CGFloat statusBarWidth = 32;
         if (ballCenter.x + ballRadius == viewWidth && ballCenter.y - ballRadius == 0) {   // Finish point
 
             NSDate *date = [NSDate date];
-            NSString *strDate = [NSString stringWithFormat:@"%@",date];
-
+            NSDateFormatter * date_format = [[NSDateFormatter alloc] init];
+            [date_format setDateFormat: @"dd/MM HH:mm"];
+            NSString * strDate = [date_format stringFromDate: date];
 
             Record *record = [[Record alloc] initWithParams:strDate andTime:sumTime
                                                  andTouches:sumTouches andMood:mood

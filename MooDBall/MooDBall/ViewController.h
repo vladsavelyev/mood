@@ -15,7 +15,11 @@
 #import "RecordTableViewController.h"
 
 @class AskViewController;
-
+@class ViewController;
+@protocol ViewControllerDelegate
+- (void)viewControllerDidCancel:
+        (ViewController *)controller;
+@end
 @interface ViewController : UIViewController {
     Maze *maze;
         
@@ -58,6 +62,7 @@
 @property (retain, nonatomic) DatabaseManager *databaseManager;
 @property (nonatomic, retain) UITableView *listView;
 @property (nonatomic, weak) id  delegate;
+- (IBAction)cancel:(id)sender;
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender;
 #pragma mark - RecordTableViewControllerDelegate
