@@ -17,13 +17,6 @@
 @property(nonatomic, strong) NSMutableArray *records;
 @property(nonatomic) sqlite3 *database;
 
-
-//@property (nonatomic, retain) NSMutableArray *records;
-//@property (readonly, nonatomic) sqlite3 *database;
-
-
-
--(id)initM;
 -(void)createEditableCopyOfDatabaseIfNeeded;
 -(void)initializeDatabase;
 

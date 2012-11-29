@@ -29,9 +29,6 @@
 @property (copy, nonatomic) NSString *mood;
 
 +(void)finalizeStatements;
--(void)readRecord;
--(void)updateRecord;
--(void)insertIntoDatabase:(sqlite3 *)db;
 - (id) initWithParams: (NSString *)date_ andTime: (NSInteger)time_ andTouches: (NSInteger)touches_ andMood: (NSString *)mood_
 andDatabase:(sqlite3 *)db;
 -(id)initWithIdentifier:(NSInteger)idKey database:(sqlite3 *)db;
