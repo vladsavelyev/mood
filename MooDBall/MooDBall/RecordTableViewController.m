@@ -37,8 +37,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellEditingStyleDelete reuseIdentifier:@"result"];
     }
     Record *result = [self.results objectAtIndex:indexPath.row];
-    cell.textLabel.text = result.date;
-    cell.detailTextLabel.text = result.mood;
+    cell.textLabel.text = [NSString stringWithFormat:@"%s (%s)", [result.date UTF8String], [result.mood UTF8String]];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%d sec/ %d touches", result.time, result.touches];
     return cell;
 }
 
