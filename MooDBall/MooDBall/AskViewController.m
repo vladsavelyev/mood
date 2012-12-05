@@ -7,10 +7,12 @@
 //
 
 #import "AskViewController.h"
-#import "ViewController.h"
+#import "MazeListViewController.h"
 
 @implementation AskViewController
 @synthesize delegate;
+
+@synthesize managedObjectContext;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -24,12 +26,10 @@
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)thePickerView {
-
     return 1;
 }
 
 - (NSInteger)pickerView:(UIPickerView *)thePickerView numberOfRowsInComponent:(NSInteger)component {
-
     return [moods count];
 }
 
@@ -38,19 +38,16 @@
 }
 
 - (void)pickerView:(UIPickerView *)thePickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-
     mood = [moods objectAtIndex:row];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"start"])
-    {
-        ViewController *viewController =
-                segue.destinationViewController;
-
-        viewController.delegate = self;
-        viewController.mood = mood;
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"start"]) {        
+        UINavigationController *navigationController = segue.destinationViewController;
+        MazeListViewController *controller = (MazeListViewController *)(navigationController.topViewController);
+        controller.managedObjectContext = self.managedObjectContext;
+        controller.delegate = self;
+        controller.mood = mood;
     }
 }
 

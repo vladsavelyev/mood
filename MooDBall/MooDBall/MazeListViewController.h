@@ -5,15 +5,18 @@
 //
 
 
-#import <Foundation/Foundation.h>
-#import "DatabaseManager.h"
+#import "ViewController.h"
 
 
 @interface MazeListViewController : UITableViewController {
-    DatabaseManager *databaseManager;
+    NSMutableArray *mazes;
+    UIBarButtonItem *addButton;
 }
 
-@property (nonatomic, weak) id  delegate;
+@property (nonatomic, weak) id delegate;
 @property (nonatomic, strong) NSMutableArray *mazes;
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, retain) UIBarButtonItem *addButton;
+@property (retain, nonatomic) NSString *mood;
 
 @end

@@ -40,6 +40,7 @@
             }
         }
     }
+    [super drawRect:rect];
 }
 
 //- (void) observeValueForKeyPath:(NSString *) keyPath

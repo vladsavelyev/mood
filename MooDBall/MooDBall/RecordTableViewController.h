@@ -5,8 +5,6 @@
 //
 
 
-#import <Foundation/Foundation.h>
-
 @class RecordTableViewController;
 @protocol RecordTableViewControllerDelegate
 - (void)recordTableViewControllerDidCancel:

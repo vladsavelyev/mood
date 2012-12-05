@@ -5,10 +5,6 @@
 //
 
 
-#import <Foundation/Foundation.h>
-
-
-#import <Foundation/Foundation.h>
 #import <sqlite3.h>
 
 @interface Record : NSObject {
@@ -32,6 +28,5 @@
 - (id) initWithParams: (NSString *)date_ andTime: (NSInteger)time_ andTouches: (NSInteger)touches_ andMood: (NSString *)mood_
 andDatabase:(sqlite3 *)db;
 -(id)initWithIdentifier:(NSInteger)idKey database:(sqlite3 *)db;
-
 
 @end

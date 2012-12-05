@@ -2,22 +2,27 @@
 //  Maze.h
 //  MooDBall
 //
-//  Created by Vladislav Saveliev on 8 Nov.
+//  Created by Vladislav Saveliev on 29 Nov.
 //  Copyright (c) 2012 Mariia Fofanova. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "MazeEntity.h"
 
 @interface Maze : NSObject {
     size_t width;
     size_t height;
-    BOOL * points;
+    BOOL * data;
+    MazeEntity * entity;
 }
 
 @property (atomic) size_t width;
 @property (atomic) size_t height;
+@property (nonatomic) BOOL * data;
+@property (nonatomic) MazeEntity * entity;
 
-- (id) initWithWidth: (size_t)theWidth andHeight: (int)theHeight;
+- (id) initWithWidth: (size_t)theWidth andHeight: (size_t)theHeight andEmptyEntity: (MazeEntity *) emptyEntity;
+
+- (id) initWithEntity: (MazeEntity *) entity;
 
 - (void) dealloc;
 

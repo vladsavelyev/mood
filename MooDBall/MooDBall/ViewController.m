@@ -27,6 +27,8 @@
 @synthesize delegate;
 @synthesize mood;
 
+@synthesize managedObjectContext;
+
 const CGFloat BLOCK_WIDTH = 20;
 const CGFloat BLOCK_HEIGHT = 20;
 
@@ -50,8 +52,19 @@ const CGFloat statusBarWidth = 32;
     CGFloat width = viewWidth / BLOCK_WIDTH;
     CGFloat height = viewHeight / BLOCK_HEIGHT;
 
-    maze = [[Maze alloc] initWithWidth: (size_t) width andHeight: (size_t) height];
-
+    if (maze == Nil) {
+        NSEntityDescription * entityDescription = [NSEntityDescription entityForName:@"MazeEntity" inManagedObjectContext:managedObjectContext];
+        
+        MazeEntity * mazeEntity = (MazeEntity *)[[NSManagedObject alloc] initWithEntity:entityDescription insertIntoManagedObjectContext:managedObjectContext];
+        
+        maze = [[Maze alloc] initWithWidth: (size_t) width andHeight: (size_t) height andEmptyEntity: mazeEntity];
+        
+        NSError *error = nil;
+        if (![managedObjectContext save:&error]) {
+            NSLog(@"error saving maze");
+        }
+    }
+    
     size_t statusBarBlocksWidth = 0;
     if (fmod(statusBarWidth, BLOCK_WIDTH) == 0) {
         statusBarBlocksWidth = (size_t) (statusBarWidth / BLOCK_WIDTH);
@@ -92,9 +105,34 @@ const CGFloat statusBarWidth = 32;
     [startButton setTitle:@"Start" forState:UIControlStateNormal];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)viewDidDisappear:(BOOL)animated {
+    NSError *error;
+    if (![managedObjectContext save:&error]) {
+        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+    }
+}
 
+//- (void)loadView {
+//    [super loadView];
+//    
+//    [self.view addSubview:ballView];
+
+//    CGRect frame = [[UIScreen mainScreen] applicationFrame];
+//    CGRect frame2 = [[UIScreen mainScreen] applicationFrame];
+//    self.view = [[UIView alloc] initWithFrame:frame];
+//    self.mazeView = [[MazeView alloc] initWithFrame:frame2];
+//    [self.view addSubview:self.mazeView];
+//}
+
+- (void)viewDidLoad {
+//    [self.view addSubview:ballView];
+
+    NSLog(@"Before super viewDidLoad");
+    [super viewDidLoad];
+    NSLog(@"After super viewDidLoad");
+    
+//    [self.view addSubview:ballView];
+    
 //    [startButton setTitle:@"Stop" forState:UIControlStateNormal];
     [startButton addTarget:self action:@selector(startHandler) forControlEvents:UIControlEventTouchUpInside];
 
@@ -110,10 +148,18 @@ const CGFloat statusBarWidth = 32;
 
     curTouches = 0;
     sumTouches = 0;
+    
+//    mazeView.maze = maze;
 
-    maze = [self loadMaze];
-    [(MazeView*)self.view setMaze:maze];
-
+    if (maze == nil) {
+        maze = [self loadMaze];
+    }
+    [self mazeView].maze = maze;
+    
+//    NSLog(@"Before set maze");
+//    [(MazeView *)self.view setMaze:maze];
+//    NSLog(@"After set maze");
+    
     motionManager = [[CMMotionManager alloc] init];
 
     if (motionManager.accelerometerAvailable) {
@@ -325,8 +371,7 @@ const CGFloat statusBarWidth = 32;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"showResults"])
     {
         UINavigationController *navigationController =

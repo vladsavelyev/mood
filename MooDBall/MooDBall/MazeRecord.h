@@ -13,7 +13,7 @@
     sqlite3 *database;
 
     NSString *data;
-    NSInteger width;
-    NSInteger height;
+    size_t width;
+    size_t height;
 }
 @end

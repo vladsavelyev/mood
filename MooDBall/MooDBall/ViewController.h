@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 Mariia Fofanova. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <CoreMotion/CoreMotion.h>
 #import "Maze.h"
 #import "MazeView.h"
@@ -24,7 +23,7 @@
     Maze *maze;
         
     IBOutlet UIImageView *ballView;
-    IBOutlet MazeView *mazeView;
+    IBOutlet MazeView * mazeView;
     
     IBOutlet UILabel *noAccelerometerLabel;
     CMMotionManager *motionManager;
@@ -59,12 +58,17 @@
 @property (retain, nonatomic) CMMotionManager *motionManager;
 @property (retain, nonatomic) NSTimer *updateTimer;
 
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+
 @property (retain, nonatomic) DatabaseManager *databaseManager;
 @property (nonatomic, retain) UITableView *listView;
 @property (nonatomic, weak) id  delegate;
 - (IBAction)cancel:(id)sender;
 
+- (Maze *)loadMaze;
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender;
+
 #pragma mark - RecordTableViewControllerDelegate
 - (void)recordTableViewControllerDidCancel:
         (RecordTableViewController *)controller;
