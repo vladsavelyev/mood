@@ -190,13 +190,13 @@ const CGFloat statusBarWidth = 32;
     [super touchesMoved:touches withEvent:event];
 
     UITouch *touch = [touches anyObject];
-    CGPoint location = [touch locationInView:self.view];
+    CGPoint location = [touch locationInView:self.mazeView];
 
     size_t x = (size_t) (location.x / BLOCK_WIDTH);
     size_t y = (size_t) (location.y / BLOCK_HEIGHT);
 
     [maze setFilledAtX:x andY:y];
-    [self.view setNeedsDisplay];
+    [self.mazeView setNeedsDisplay];
 }
 
 - (void)accelerometerUpdate {

@@ -81,21 +81,16 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"createMaze"]) {
-//         viewContoller [[ViewController alloc] init];
-        NSLog(@"Before initializing viewController");
         ViewController * viewController = segue.destinationViewController;
         
 //        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
 //        viewController = [sb instantiateViewControllerWithIdentifier:@"ViewController"];
         
-        NSLog(@"Initizlized withNibName viewController");
         viewController.delegate = self;
         viewController.mood = mood;
         viewController.managedObjectContext = [self managedObjectContext];
         
-//        [self presentViewController:viewController animated:YES completion:<#^(void)completion#>];
 //        [self.view addSubview:[viewController view]];
-        NSLog(@"Add subview");
     }
 }
 

@@ -8,7 +8,7 @@
         <scene sceneID="5">
             <objects>
                 <viewController id="2" customClass="ViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleAspectFill" id="3">
+                    <view key="view" contentMode="scaleAspectFill" id="3" customClass="MazeView">
                         <rect key="frame" x="0.0" y="20" width="568" height="300"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -101,6 +101,7 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="ballView" destination="Mur-vk-SWQ" id="wES-U0-J5c"/>
+                        <outlet property="mazeView" destination="3" id="m2f-Hu-dUM"/>
                         <outlet property="noAccelerometerLabel" destination="5U5-0D-nUp" id="B5X-yE-j08"/>
                         <outlet property="startButton" destination="5r5-OI-aql" id="jXK-wq-CE2"/>
                         <outlet property="timeLabel" destination="tyK-S0-KEg" id="F2N-yb-RoU"/>
