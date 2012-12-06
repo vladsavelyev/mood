@@ -111,7 +111,12 @@
 
 
 - (void)tableView: (UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath {
-    ViewController * viewController = [[ViewController alloc] initWithNibName:@"MazeView" bundle:nil];
+    
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
+    ViewController * viewController = [sb instantiateViewControllerWithIdentifier:@"ViewController"];
+    
+//    ViewController * viewController = [[ViewController alloc] initWithNibName:@"MazeView" bundle:nil];
+//    ViewController * viewController = [[ViewController alloc] init];
     
     MazeEntity *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
     Maze * maze = [[Maze alloc] initWithEntity:object];
