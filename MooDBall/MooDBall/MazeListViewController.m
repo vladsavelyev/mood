@@ -17,55 +17,85 @@
 @synthesize mood;
 
 
+//
+//- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+//    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+//    
+//    if (self) {            
+////        mazes = [[NSMutableArray alloc] initWithObjects: ]];
+//    }
+//    return self;
+//}
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {            
-//        mazes = [[NSMutableArray alloc] initWithObjects: ]];
+- (void)awakeFromNib
+{
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        self.clearsSelectionOnViewWillAppear = NO;
+        self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
     }
-    return self;
+    [super awakeFromNib];
 }
 
 - (void)viewDidLoad {
+    [super viewDidLoad];
+    self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    
+//    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+//    NSEntityDescription *entity = [NSEntityDescription entityForName:@"MazeEntity" inManagedObjectContext:managedObjectContext];
+//    [request setEntity:entity];
+//    
+//    NSError *error = nil;
+//    NSMutableArray *mutableFetchResults = [[managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
+//    if (mutableFetchResults == nil) {
+//	    NSLog(@"Error fetching mazes %@, %@", error, [error userInfo]);
+//    }
+//    
+//    int i;
+//    for (i = 0; i < mutableFetchResults.count; i++) {
+//        Maze * maze = [[Maze alloc] initWithEntity:[mutableFetchResults objectAtIndex:i]];
+//        [[self mazes] addObject:maze];
+//    }
 }
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.mazes count];
+    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
+    return [sectionInfo numberOfObjects];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"mazeName"];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
-    cell.textLabel.text = [NSString stringWithFormat:@"%d", indexPath.row];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+//    if (cell == nil) {
+//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"mazeName"];
+//        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//    }
+    [self configureCell:cell atIndexPath:indexPath];
+//    cell.textLabel.text = [NSString stringWithFormat:@"%d", indexPath.row];
     return cell;
 }
 
-- (void)tableView: (UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath {
-    ViewController * viewController = [[ViewController alloc] initWithNibName:@"MazeView" bundle:nil];
-    
-    Maze *maze = [mazes objectAtIndex:indexPath.row];
-    viewController.maze = maze;
-    viewController.managedObjectContext = [self managedObjectContext];
-    
-    [self.navigationController pushViewController:viewController animated:YES];
-//    [self.view addSubview:[viewController view]];
-    
-    
-//    if (editController == nil) {
-//        self.editController = [[ItemEditViewController alloc] initWithNibName:@\"ItemEditView\" bundle:[NSBundle mainBundle]];
-//    }
-//    editController.dataItem =[dataItems objectAtIndex:idx];
-//    [self.view addSubview:[editController view]];
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+        [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+        
+        NSError *error = nil;
+        if (![context save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
 }
 
 //- (UITableViewCell *)tableView:(UITableView *)tableView
@@ -78,6 +108,31 @@
 //    cell.textLabel.text = [NSString stringWithFormat:@"%d", indexPath.row];
 //    return cell;
 //}
+
+
+- (void)tableView: (UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath {
+    ViewController * viewController = [[ViewController alloc] initWithNibName:@"MazeView" bundle:nil];
+    
+    MazeEntity *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+    Maze * maze = [[Maze alloc] initWithEntity:object];
+    viewController.maze = maze;    
+    
+//    Maze *maze = [mazes objectAtIndex:indexPath.row];
+//    viewController.maze = maze;
+    
+    viewController.managedObjectContext = [self managedObjectContext];
+    [self.navigationController pushViewController:viewController animated:YES];
+    
+    //    [self.view addSubview:[viewController view]];
+    
+    
+    //    if (editController == nil) {
+    //        self.editController = [[ItemEditViewController alloc] initWithNibName:@\"ItemEditView\" bundle:[NSBundle mainBundle]];
+    //    }
+    //    editController.dataItem =[dataItems objectAtIndex:idx];
+    //    [self.view addSubview:[editController view]];
+    
+}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"createMaze"]) {
@@ -92,6 +147,93 @@
         
 //        [self.view addSubview:[viewController view]];
     }
+}
+#pragma mark - Fetched results controller
+
+- (NSFetchedResultsController *)fetchedResultsController {
+    if (_fetchedResultsController != nil) {
+        return _fetchedResultsController;
+    }
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"MazeEntity" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    [fetchRequest setFetchBatchSize:20];
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:NO];
+    NSArray *sortDescriptors = @[sortDescriptor];
+    [fetchRequest setSortDescriptors:sortDescriptors];
+    
+    // Edit the section name key path and cache name if appropriate.
+    // nil for section name key path means "no sections".
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Mazes"];
+    
+    aFetchedResultsController.delegate = self;
+    self.fetchedResultsController = aFetchedResultsController;
+    
+	NSError *error = nil;
+	if (![self.fetchedResultsController performFetch:&error]) {
+	    NSLog(@"Error fetching mazes %@, %@", error, [error userInfo]);
+	    abort();
+	}
+    
+    return _fetchedResultsController;
+    
+}
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView beginUpdates];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
+           atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+    
+    switch(type) {
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
+       atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)newIndexPath {
+    
+    UITableView *tableView = self.tableView;
+    
+    switch(type) {
+        case NSFetchedResultsChangeInsert:
+            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView endUpdates];
+}
+
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text = [[object valueForKey:@"timeStamp"] description];
+//    cell.textLabel.text = [NSString stringWithFormat:@"%d", indexPath.row];
 }
 
 @end

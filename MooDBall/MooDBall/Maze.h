@@ -19,6 +19,7 @@
 @property (atomic) size_t height;
 @property (nonatomic) BOOL * data;
 @property (nonatomic) MazeEntity * entity;
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
 - (id) initWithWidth: (size_t)theWidth andHeight: (size_t)theHeight andEmptyEntity: (MazeEntity *) emptyEntity;
 
@@ -31,5 +32,7 @@
 - (void) setFilledAtX: (int)x andY: (int)y;
 
 - (BOOL) getAtX: (int)x andY: (int)y;
+
+- (void) save;
 
 @end

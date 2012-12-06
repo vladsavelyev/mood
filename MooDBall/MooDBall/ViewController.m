@@ -56,8 +56,10 @@ const CGFloat statusBarWidth = 32;
         NSEntityDescription * entityDescription = [NSEntityDescription entityForName:@"MazeEntity" inManagedObjectContext:managedObjectContext];
         
         MazeEntity * mazeEntity = (MazeEntity *)[[NSManagedObject alloc] initWithEntity:entityDescription insertIntoManagedObjectContext:managedObjectContext];
+        [mazeEntity setValue:[NSDate date] forKey:@"timeStamp"];
         
         maze = [[Maze alloc] initWithWidth: (size_t) width andHeight: (size_t) height andEmptyEntity: mazeEntity];
+        maze.managedObjectContext = managedObjectContext;
         
         NSError *error = nil;
         if (![managedObjectContext save:&error]) {
@@ -105,7 +107,9 @@ const CGFloat statusBarWidth = 32;
     [startButton setTitle:@"Start" forState:UIControlStateNormal];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
+- (void)vieWillDisappear:(BOOL)animated {
+    [self.maze save];
+    
     NSError *error;
     if (![managedObjectContext save:&error]) {
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
@@ -368,6 +372,13 @@ const CGFloat statusBarWidth = 32;
 }
 
 - (void) dealloc {
+    [maze save];
+    
+    NSError *error;
+    if (![managedObjectContext save:&error]) {
+        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+    }
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
