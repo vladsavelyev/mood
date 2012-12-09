@@ -12,16 +12,18 @@ class Controller : public QGraphicsScene
 {
     Q_OBJECT
     std::vector<std::vector<Ball*> > cells;
-    void drawBackground(QPainter *painter, const QRectF &rect);
 
-    static const int cellSize = 30;
-    int fieldSize;
+    static const int cellSize = 20;
+    int width, height;
 public:
-    explicit Controller(int size);
+    explicit Controller(int,int);
+    void init(int w, int h);
 
 signals:
 public slots:
     void save();
+    void changeSize(int width, int height);
+    void clear();
 
 };
 

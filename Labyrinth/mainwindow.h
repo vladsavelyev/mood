@@ -15,9 +15,9 @@ class MainWindow : public QMainWindow
     QMenuBar* menuBar;
     Controller* gameScene;
     QGraphicsView* gameView;
-    int size;
+    int width, height;
 public:
-    explicit MainWindow(int size, QWidget *parent = 0);
+    explicit MainWindow(QWidget *parent = 0);
 signals:
 
 public slots:
