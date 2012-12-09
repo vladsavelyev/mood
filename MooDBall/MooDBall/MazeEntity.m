@@ -11,6 +11,7 @@
 
 @implementation MazeEntity
 
+@dynamic timeStamp;
 @dynamic height;
 @dynamic width;
 @dynamic data;

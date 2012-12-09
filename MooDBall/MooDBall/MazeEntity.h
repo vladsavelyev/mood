@@ -9,6 +9,7 @@
 
 @interface MazeEntity : NSManagedObject
 
+@property (nonatomic, retain) NSDate * timeStamp;
 @property (nonatomic) int16_t height;
 @property (nonatomic) int16_t width;
 @property (nonatomic, retain) NSData * data;
