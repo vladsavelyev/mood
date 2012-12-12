@@ -290,7 +290,8 @@ const CGFloat statusBarWidth = 32;
                                                  andTouches:sumTouches andMood:mood
                                                 andDatabase:databaseManager.database];
             [databaseManager.records addObject:record];
-            NSString *message = [NSString stringWithFormat:@"Your time is %d",sumTime];
+            NSString *message = [NSString stringWithFormat:@"Your time is %d and we think that your mood is %@",sumTime,
+                            [databaseManager mood:sumTouches time:sumTime]];
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congrats"
                                                             message:message
                                                            delegate:nil

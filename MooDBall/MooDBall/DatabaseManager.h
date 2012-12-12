@@ -18,5 +18,6 @@
 
 -(void)createEditableCopyOfDatabaseIfNeeded;
 -(void)initializeDatabase;
+-(NSString *)mood:(int) to time: (int) ti;
 
 @end

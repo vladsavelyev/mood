@@ -49,6 +49,35 @@
     }
 }
 
+- (NSString *)mood:(int) to time: (int) ti {
+    double touches[4] = {0,0,0,0};
+    int total[4] = {0,0,0,0};
+    NSArray*  moods  = [NSArray arrayWithObjects:@"angry", @"sad", @"normal", @"happy", nil];
+    NSArray*  keys  = [NSArray arrayWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1],
+                                                [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], nil];
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:moods
+                                                           forKeys:keys];
+    for (Record *record in records) {
+        touches[[[dictionary objectForKey:(record.mood)] intValue]] += record.touches * 1.0/ record.time;
+        total[[[dictionary objectForKey:(record.mood)] intValue]] ++;
+    }
+    for (int i = 0; i < dictionary.count; ++i) {
+        touches[i] /=  total[i];
+    }
+    double rtouches[4];
+    double minto = 0;
+    int mintoN = 0;
+    for (int i = 0; i < dictionary.count; ++i) {
+        rtouches[i] = touches[i] - to * 1.0 / ti;
+        if (fabs(rtouches[i]) < minto) {
+            mintoN = i;
+            minto = fabs(rtouches[i]);
+        }
+    }
+    return moods[mintoN];
+}
+
+
 - (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [Record finalizeStatements];
