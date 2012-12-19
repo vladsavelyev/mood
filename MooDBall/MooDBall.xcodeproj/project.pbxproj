@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		2106C9D51681C23000D281F3 /* AskAgainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2106C9D41681C23000D281F3 /* AskAgainViewController.m */; };
 		210D374C166264C2007B1752 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 210D374B166264C2007B1752 /* CoreData.framework */; };
+		211000201682251D00BC2D27 /* Record.m in Sources */ = {isa = PBXBuildFile; fileRef = 216A2AF21666054B00799CF1 /* Record.m */; };
+		211000221682252100BC2D27 /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 216A2AE91666054B00799CF1 /* DatabaseManager.m */; };
+		21100023168226AA00BC2D27 /* libsqlite3.0.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 21EA7FAE16628C8700BED175 /* libsqlite3.0.dylib */; };
+		21100024168226D300BC2D27 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 21EA7FAE16628C8700BED175 /* libsqlite3.0.dylib */; };
 		211E47B1164B945400739F02 /* GreenBall.png in Resources */ = {isa = PBXBuildFile; fileRef = 211E47B0164B945400739F02 /* GreenBall.png */; };
 		213F98BC164FC0E700C171B2 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 213F98BB164FC0E700C171B2 /* SenTestingKit.framework */; };
 		213F98BD164FC0E700C171B2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6B183163D994700ECBE6D /* UIKit.framework */; };
@@ -97,6 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21100024168226D300BC2D27 /* libsqlite3.0.dylib in Frameworks */,
 				213F98BC164FC0E700C171B2 /* SenTestingKit.framework in Frameworks */,
 				213F98BD164FC0E700C171B2 /* UIKit.framework in Frameworks */,
 				213F98BE164FC0E700C171B2 /* Foundation.framework in Frameworks */,
@@ -291,6 +296,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21100023168226AA00BC2D27 /* libsqlite3.0.dylib in Resources */,
 				213F98C4164FC0E700C171B2 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -334,6 +340,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				213F98C7164FC0E700C171B2 /* MooDTests.m in Sources */,
+				211000201682251D00BC2D27 /* Record.m in Sources */,
+				211000221682252100BC2D27 /* DatabaseManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
