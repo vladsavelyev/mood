@@ -9,7 +9,7 @@
             <objects>
                 <viewController storyboardIdentifier="ViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2" customClass="ViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleAspectFill" id="3" customClass="MazeView">
-                        <rect key="frame" x="0.0" y="20" width="568" height="300"/>
+                        <rect key="frame" x="0.0" y="64" width="568" height="256"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="715" image="GreenBall.png" translatesAutoresizingMaskIntoConstraints="NO" id="Mur-vk-SWQ">
@@ -55,9 +55,9 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uYj-Bz-KgU">
                                 <items>
                                     <navigationItem title="MooD" id="26Q-cv-VvM">
-                                        <barButtonItem key="leftBarButtonItem" title="Set mood" id="jci-aU-P24">
+                                        <barButtonItem key="leftBarButtonItem" title="Choose Mood" id="9tT-b7-rD0">
                                             <connections>
-                                                <action selector="cancel:" destination="2" id="lqh-MB-HSb"/>
+                                                <segue destination="oJR-YD-zE2" kind="modal" identifier="changeMood" id="PNx-V3-8vr"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Results" id="FdY-Rf-wOR">
@@ -82,22 +82,23 @@
                             <constraint firstItem="uYj-Bz-KgU" firstAttribute="top" secondItem="3" secondAttribute="top" type="default" id="1yY-eB-7hW"/>
                             <constraint firstAttribute="trailing" secondItem="tyK-S0-KEg" secondAttribute="trailing" constant="14" id="3cU-GK-lYg"/>
                             <constraint firstItem="TrE-RR-BAC" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="191" id="9Dv-Ni-lzo"/>
+                            <constraint firstItem="DUx-Gs-zYO" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="9pH-HL-I0j"/>
                             <constraint firstItem="uYj-Bz-KgU" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="L90-2b-jKJ"/>
+                            <constraint firstItem="DUx-Gs-zYO" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="NNy-SC-H9b"/>
                             <constraint firstItem="5U5-0D-nUp" firstAttribute="centerY" secondItem="Mur-vk-SWQ" secondAttribute="centerY" type="default" id="OFp-5z-Fkx"/>
-                            <constraint firstItem="tyK-S0-KEg" firstAttribute="centerY" secondItem="DUx-Gs-zYO" secondAttribute="centerY" type="default" id="Qcf-ib-nUz"/>
-                            <constraint firstItem="DUx-Gs-zYO" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="RB7-IK-SBg"/>
                             <constraint firstItem="5U5-0D-nUp" firstAttribute="centerY" secondItem="3" secondAttribute="centerY" type="default" id="TaP-7j-b5h"/>
                             <constraint firstItem="Mur-vk-SWQ" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="W7A-k6-lOi"/>
+                            <constraint firstItem="DUx-Gs-zYO" firstAttribute="centerY" secondItem="tyK-S0-KEg" secondAttribute="centerY" type="default" id="bK9-2t-vHM"/>
                             <constraint firstAttribute="trailing" secondItem="5U5-0D-nUp" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="eGV-zx-YRj"/>
                             <constraint firstItem="uYj-Bz-KgU" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="fsO-IM-vVa"/>
                             <constraint firstItem="tyK-S0-KEg" firstAttribute="top" secondItem="TrE-RR-BAC" secondAttribute="top" type="default" id="hwZ-NP-Van"/>
                             <constraint firstItem="5U5-0D-nUp" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="jg3-Wk-x4d"/>
                             <constraint firstItem="DUx-Gs-zYO" firstAttribute="bottom" secondItem="3" secondAttribute="bottom" type="default" id="jgM-Kt-Kbg"/>
-                            <constraint firstItem="DUx-Gs-zYO" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="sLv-CB-lba"/>
                             <constraint firstItem="tyK-S0-KEg" firstAttribute="baseline" secondItem="TrE-RR-BAC" secondAttribute="baseline" type="default" id="yiY-FN-JTq"/>
                         </constraints>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
+                    <navigationItem key="navigationItem" id="zG2-59-XZe"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="ballView" destination="Mur-vk-SWQ" id="wES-U0-J5c"/>
@@ -142,9 +143,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="vzv-Ek-Dkm" firstAttribute="top" secondItem="tFc-Np-gVU" secondAttribute="top" constant="91" id="C58-Sd-ehW"/>
                             <constraint firstItem="tWu-9h-a5c" firstAttribute="leading" secondItem="tFc-Np-gVU" secondAttribute="leading" type="default" id="CAB-MT-W8d"/>
                             <constraint firstItem="tWu-9h-a5c" firstAttribute="top" secondItem="tFc-Np-gVU" secondAttribute="top" type="default" id="My3-4m-iZM"/>
+                            <constraint firstItem="vzv-Ek-Dkm" firstAttribute="top" secondItem="tWu-9h-a5c" secondAttribute="bottom" type="default" id="PfY-de-ChF"/>
                             <constraint firstItem="vzv-Ek-Dkm" firstAttribute="trailing" secondItem="tFc-Np-gVU" secondAttribute="trailing" type="default" id="QwR-NI-ozW"/>
                             <constraint firstItem="vzv-Ek-Dkm" firstAttribute="leading" secondItem="tFc-Np-gVU" secondAttribute="leading" type="default" id="moA-ro-x24"/>
                             <constraint firstItem="tWu-9h-a5c" firstAttribute="trailing" secondItem="tFc-Np-gVU" secondAttribute="trailing" type="default" id="qhh-yn-Bpq"/>
@@ -159,12 +160,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g5b-US-Yf6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1323" y="-3481"/>
+            <point key="canvasLocation" x="-1311" y="-3481"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="LUn-9m-xUL">
             <objects>
                 <navigationController definesPresentationContext="YES" id="NuM-hE-QfS" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Ck2-q3-uw6"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="EGI-MS-ko8">
                         <autoresizingMask key="autoresizingMask"/>
@@ -175,9 +177,9 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hzZ-ql-Ykx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2019" y="-3481"/>
+            <point key="canvasLocation" x="-2012" y="-3481"/>
         </scene>
-        <!--Maze List View Controller - Root View Controller-->
+        <!--Maze List View Controller - Mazes-->
         <scene sceneID="eCs-Q7-Vcm">
             <objects>
                 <tableViewController id="iUy-2s-Ur2" customClass="MazeListViewController" sceneMemberID="viewController">
@@ -198,17 +200,61 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="k3u-p9-Qzy">
-                        <barButtonItem key="rightBarButtonItem" title="Create new maze" id="ohO-2e-3PV">
-                            <connections>
-                                <segue destination="2" kind="modal" identifier="createMaze" id="xma-xs-mji"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Mazes" id="ORL-jo-ir0"/>
+                    <connections>
+                        <segue destination="2" kind="push" identifier="showMaze" id="npQ-Rm-3vL"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iqa-Eq-2dr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1311" y="-3049"/>
+        </scene>
+        <!--Ask Again View Controller-->
+        <scene sceneID="KEY-Ab-rSi">
+            <objects>
+                <viewController id="oJR-YD-zE2" customClass="AskAgainViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yUD-vo-seg">
+                        <rect key="frame" x="0.0" y="20" width="568" height="300"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" verticalCompressionResistancePriority="491" translatesAutoresizingMaskIntoConstraints="NO" id="epV-w7-IzX">
+                                <connections>
+                                    <outlet property="dataSource" destination="oJR-YD-zE2" id="8SH-6T-VOh"/>
+                                    <outlet property="delegate" destination="oJR-YD-zE2" id="nRD-90-N3s"/>
+                                </connections>
+                            </pickerView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R52-z9-FQ5">
+                                <items>
+                                    <navigationItem title="Mood" id="D1J-TI-31n">
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="jgh-iK-RSI">
+                                            <connections>
+                                                <segue destination="h5e-di-A2a" kind="unwind" unwindAction="returned:" id="HH5-ZW-Ogl"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="R52-z9-FQ5" firstAttribute="top" secondItem="yUD-vo-seg" secondAttribute="top" type="default" id="GkI-O4-zYg"/>
+                            <constraint firstItem="epV-w7-IzX" firstAttribute="trailing" secondItem="yUD-vo-seg" secondAttribute="trailing" type="default" id="Hd6-hD-zru"/>
+                            <constraint firstItem="R52-z9-FQ5" firstAttribute="leading" secondItem="yUD-vo-seg" secondAttribute="leading" type="default" id="PSY-eH-xjW"/>
+                            <constraint firstItem="R52-z9-FQ5" firstAttribute="trailing" secondItem="yUD-vo-seg" secondAttribute="trailing" type="default" id="RyC-cP-BgN"/>
+                            <constraint firstItem="epV-w7-IzX" firstAttribute="top" secondItem="R52-z9-FQ5" secondAttribute="bottom" type="default" id="d8Q-1W-VvZ"/>
+                            <constraint firstItem="epV-w7-IzX" firstAttribute="leading" secondItem="yUD-vo-seg" secondAttribute="leading" type="default" id="woq-sN-eLN"/>
+                        </constraints>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <connections>
+                        <outlet property="moodChooser" destination="epV-w7-IzX" id="Ohm-Ex-lMX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3YA-fS-lup" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="h5e-di-A2a" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="-2728" y="-2597"/>
         </scene>
         <!--Navigation Controller - mazesNavigation-->
         <scene sceneID="gMn-0L-xW3">
@@ -1172,41 +1218,6 @@
     <resources>
         <image name="GreenBall.png" width="112" height="112"/>
     </resources>
-    <classes>
-        <class className="AskViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AskViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="moodChooser" candidateClass="UIPickerView"/>
-            </relationships>
-        </class>
-        <class className="MazeListViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MazeListViewController.h"/>
-        </class>
-        <class className="MazeView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MazeView.h"/>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="RecordTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RecordTableViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="cancel:"/>
-            </relationships>
-        </class>
-        <class className="ViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="cancel:"/>
-                <relationship kind="outlet" name="ballView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="mazeView" candidateClass="MazeView"/>
-                <relationship kind="outlet" name="noAccelerometerLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="startButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="timeLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="touchLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

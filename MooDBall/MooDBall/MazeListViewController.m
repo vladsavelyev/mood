@@ -16,7 +16,6 @@
 @synthesize addButton;
 @synthesize mood;
 
-
 //
 //- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 //    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -27,8 +26,7 @@
 //    return self;
 //}
 
-- (void)awakeFromNib
-{
+- (void)awakeFromNib {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         self.clearsSelectionOnViewWillAppear = NO;
         self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
@@ -39,6 +37,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
+    self.navigationItem.rightBarButtonItem = addButton;
+    
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
+//    self.viewController = (ViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    self.viewController = [sb instantiateViewControllerWithIdentifier:@"ViewController"];
     
 //    NSFetchRequest *request = [[NSFetchRequest alloc] init];
 //    NSEntityDescription *entity = [NSEntityDescription entityForName:@"MazeEntity" inManagedObjectContext:managedObjectContext];
@@ -55,6 +59,25 @@
 //        Maze * maze = [[Maze alloc] initWithEntity:[mutableFetchResults objectAtIndex:i]];
 //        [[self mazes] addObject:maze];
 //    }
+}
+
+- (void)insertNewObject:(id)sender {
+    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+//    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
+//    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
+    
+    NSEntityDescription * entityDescription = [NSEntityDescription entityForName:@"MazeEntity" inManagedObjectContext:managedObjectContext];
+    MazeEntity * mazeEntity = (MazeEntity *)[[NSManagedObject alloc] initWithEntity:entityDescription insertIntoManagedObjectContext:managedObjectContext];
+    [mazeEntity setValue:[NSDate date] forKey:@"timeStamp"];
+    
+    // Save the context.
+    NSError *error = nil;
+    if (![context save:&error]) {
+        // Replace this implementation with code to handle the error appropriately.
+        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
 }
 
 
@@ -110,23 +133,33 @@
 //}
 
 
-- (void)tableView: (UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    MazeEntity *entity = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+    Maze * maze = [[Maze alloc] initWithEntity:entity];
     
-    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
-    ViewController * viewController = [sb instantiateViewControllerWithIdentifier:@"ViewController"];
-    
+    [self.viewController setMood:mood];
+    [self.viewController setMazeEntity:entity];
+    [self.viewController configure];
+    [self.navigationController pushViewController:self.viewController animated:YES];
+}
+
+- (void)tableView: (UITableView *)tableView didSelectRowAtIndexPath1: (NSIndexPath *)indexPath {
 //    ViewController * viewController = [[ViewController alloc] initWithNibName:@"MazeView" bundle:nil];
 //    ViewController * viewController = [[ViewController alloc] init];
     
-    MazeEntity *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-    Maze * maze = [[Maze alloc] initWithEntity:object];
-    viewController.maze = maze;    
+    MazeEntity *entity = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+//    Maze * maze = [[Maze alloc] initWithEntity:object];
+    self.viewController.mazeEntity = entity;
+    self.viewController.mood = mood;
+    
+//    viewController.delegate = self;
+    self.viewController.managedObjectContext = [self managedObjectContext];
     
 //    Maze *maze = [mazes objectAtIndex:indexPath.row];
 //    viewController.maze = maze;
     
-    viewController.managedObjectContext = [self managedObjectContext];
-    [self.navigationController pushViewController:viewController animated:YES];
+    self.viewController.managedObjectContext = [self managedObjectContext];
+    [self.navigationController pushViewController:self.viewController animated:YES];
     
     //    [self.view addSubview:[viewController view]];
     
@@ -136,25 +169,48 @@
     //    }
     //    editController.dataItem =[dataItems objectAtIndex:idx];
     //    [self.view addSubview:[editController view]];
-    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"createMaze"]) {
-        ViewController * viewController = segue.destinationViewController;
-        
+    if ([segue.identifier isEqualToString:@"showMaze"]) {
 //        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
-//        viewController = [sb instantiateViewControllerWithIdentifier:@"ViewController"];
+//        ViewController * viewController = [sb instantiateViewControllerWithIdentifier:@"ViewController"];
         
-        viewController.delegate = self;
-        viewController.mood = mood;
-        viewController.managedObjectContext = [self managedObjectContext];
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        MazeEntity *entity = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+        Maze * maze = [[Maze alloc] initWithEntity:entity];
         
-//        [self.view addSubview:[viewController view]];
+        [[segue destinationViewController] setMood:mood];
+        [[segue destinationViewController] setMaze:maze];
+        [[segue destinationViewController] setMazeEntity:entity];
+
+//        viewController.delegate = self;
+//        viewController.managedObjectContext = [self managedObjectContext];
+//        
+//        [self.navigationController pushViewController:viewController animated:YES];
     }
 }
-#pragma mark - Fetched results controller
+//
+//- (void)insertNewObject:(id)sender {
+//    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+//    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
+//    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
+//    
+//    // If appropriate, configure the new managed object.
+//    // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
+//    [newManagedObject setValue:[NSDate date] forKey:@"timeStamp"];
+//    
+//    // Save the context.
+//    NSError *error = nil;
+//    if (![context save:&error]) {
+//        // Replace this implementation with code to handle the error appropriately.
+//        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+//        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+//        abort();
+//    }
+//}
 
+#pragma mark - Fetched results controller
 - (NSFetchedResultsController *)fetchedResultsController {
     if (_fetchedResultsController != nil) {
         return _fetchedResultsController;
@@ -184,7 +240,6 @@
 	}
     
     return _fetchedResultsController;
-    
 }
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
@@ -240,6 +295,13 @@
     cell.textLabel.text = [[object valueForKey:@"timeStamp"] description];
 //    cell.textLabel.text = [NSString stringWithFormat:@"%d", indexPath.row];
 }
+
+#pragma mark - ViewControllerDelegate
+- (void)viewControllerDidCancel:
+(ViewController *)controller {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 @end
 

@@ -11,7 +11,6 @@
 @interface MazeListViewController : UITableViewController <NSFetchedResultsControllerDelegate> {
     NSMutableArray *mazes;
     UIBarButtonItem *addButton;
-    
 }
 
 @property (nonatomic, weak) id delegate;
@@ -20,5 +19,13 @@
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain) UIBarButtonItem *addButton;
 @property (retain, nonatomic) NSString *mood;
+
+@property (strong, nonatomic) ViewController *viewController;
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender;
+
+#pragma mark - ViewControllerDelegate
+- (void)viewControllerDidCancel:
+(ViewController *)controller;
 
 @end

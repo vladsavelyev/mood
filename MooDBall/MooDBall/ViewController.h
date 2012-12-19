@@ -20,10 +20,11 @@
         (ViewController *)controller;
 @end
 @interface ViewController : UIViewController {
-    Maze *maze;
+    Maze *_maze;
+    MazeEntity *_mazeEntity;
         
     IBOutlet UIImageView *ballView;
-    IBOutlet MazeView * mazeView;
+    IBOutlet MazeView *mazeView;
     
     IBOutlet UILabel *noAccelerometerLabel;
     CMMotionManager *motionManager;
@@ -46,9 +47,12 @@
     __weak IBOutlet UILabel *timeLabel;
     __weak IBOutlet UILabel *touchLabel;
     __weak IBOutlet UIButton *startButton;
+//    __weak IBOutlet UIButton *chooseMood;
 }
 
 @property (retain, nonatomic) Maze *maze;
+@property (retain, nonatomic) MazeEntity *mazeEntity;
+
 @property (retain, nonatomic) NSString *mood;
 
 @property (retain, nonatomic) IBOutlet UIImageView *ballView;
@@ -62,10 +66,13 @@
 
 @property (retain, nonatomic) DatabaseManager *databaseManager;
 @property (nonatomic, retain) UITableView *listView;
-@property (nonatomic, weak) id  delegate;
-- (IBAction)cancel:(id)sender;
+@property (nonatomic, weak) id delegate;
+
+//@property (nonatomic, retain) IBOutlet UIButton *chooseMood;
 
 - (Maze *)loadMaze;
+
+- (void) configure;
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender;
 

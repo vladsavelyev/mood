@@ -8,6 +8,7 @@
 #import "ViewController.h"
 #import "Record.h"
 #import "RecordTableViewController.h"
+#import "AskAgainViewController.h"
 
 //@interface ViewController ()
 //
@@ -15,7 +16,8 @@
 
 @implementation ViewController
 
-@synthesize maze;           
+@synthesize maze;
+@synthesize mazeEntity;
 
 @synthesize ballView;
 @synthesize mazeView;
@@ -31,7 +33,6 @@
 
 const CGFloat BLOCK_WIDTH = 20;
 const CGFloat BLOCK_HEIGHT = 20;
-
 const CGFloat statusBarWidth = 32;
 
 - (void)didReceiveMemoryWarning {
@@ -43,9 +44,12 @@ const CGFloat statusBarWidth = 32;
     return (interfaceOrientation == UIInterfaceOrientationLandscapeRight);
 }
 
-- (IBAction)cancel:(id)sender
-{
+- (IBAction)cancel:(id)sender {
     [self.delegate viewControllerDidCancel:self];
+}
+
+- (void) configure {
+    [self configView];
 }
 
 - (Maze *)loadMaze {
@@ -53,12 +57,12 @@ const CGFloat statusBarWidth = 32;
     CGFloat height = viewHeight / BLOCK_HEIGHT;
 
     if (maze == Nil) {
-        NSEntityDescription * entityDescription = [NSEntityDescription entityForName:@"MazeEntity" inManagedObjectContext:managedObjectContext];
+//        NSEntityDescription * entityDescription = [NSEntityDescription entityForName:@"MazeEntity" inManagedObjectContext:managedObjectContext];
         
-        MazeEntity * mazeEntity = (MazeEntity *)[[NSManagedObject alloc] initWithEntity:entityDescription insertIntoManagedObjectContext:managedObjectContext];
-        [mazeEntity setValue:[NSDate date] forKey:@"timeStamp"];
+//        self.mazeEntity = (MazeEntity *)[[NSManagedObject alloc] initWithEntity:entityDescription     insertIntoManagedObjectContext:managedObjectContext];
+//        [mazeEntity setValue:[NSDate date] forKey:@"timeStamp"];
         
-        maze = [[Maze alloc] initWithWidth: (size_t) width andHeight: (size_t) height andEmptyEntity: mazeEntity];
+        maze = [[Maze alloc] initWithWidth: (size_t) width andHeight: (size_t) height andEmptyEntity: self.mazeEntity];
         maze.managedObjectContext = managedObjectContext;
         
         NSError *error = nil;
@@ -79,8 +83,6 @@ const CGFloat statusBarWidth = 32;
             [maze setFilledAtX:x andY:y];
         }
     }
-
-    return maze;
 }
 
 - (void)startHandler {
@@ -128,6 +130,51 @@ const CGFloat statusBarWidth = 32;
 //    [self.view addSubview:self.mazeView];
 //}
 
+- (void) configView {
+    [startButton addTarget:self action:@selector(startHandler) forControlEvents:UIControlEventTouchUpInside];
+    
+    // CGRectGetHeight and CGRectGetWidth return portrait orientation bounds,
+    // but we need to work on landscape one. That's why I replaced them.
+    viewWidth = CGRectGetHeight(self.view.bounds);
+    viewHeight = CGRectGetWidth(self.view.bounds); // Fix height for status bar
+    
+    ballStartPosition = CGPointMake(16, 160);
+    
+    curTime = 0;
+    sumTime = 0;
+    
+    curTouches = 0;
+    sumTouches = 0;
+    
+    //    mazeView.maze = maze;
+    
+    if (maze == nil) {
+        [self loadMaze];
+    }
+    [self mazeView].maze = maze;
+    
+    //    NSLog(@"Before set maze");
+    //    [(MazeView *)self.view setMaze:maze];
+    //    NSLog(@"After set maze");
+    
+    motionManager = [[CMMotionManager alloc] init];
+    
+    if (motionManager.accelerometerAvailable) {
+        motionManager.accelerometerUpdateInterval = 1.0f / 60.0f;
+        [motionManager startAccelerometerUpdates];
+    } else {
+        noAccelerometerLabel.text = @"No accelerometer";
+    }
+    
+    ballCenter = ballStartPosition;
+    ballView.center = ballCenter;
+    NSLog(@"x = %f, y = %f", ballCenter.x, ballCenter.y);
+    
+    databaseManager = [[DatabaseManager alloc] init];
+    [databaseManager createEditableCopyOfDatabaseIfNeeded];
+    [databaseManager initializeDatabase];
+}
+
 - (void)viewDidLoad {
 //    [self.view addSubview:ballView];
 
@@ -135,51 +182,12 @@ const CGFloat statusBarWidth = 32;
     [super viewDidLoad];
     NSLog(@"After super viewDidLoad");
     
+    [self configView];
+    
 //    [self.view addSubview:ballView];
     
 //    [startButton setTitle:@"Stop" forState:UIControlStateNormal];
-    [startButton addTarget:self action:@selector(startHandler) forControlEvents:UIControlEventTouchUpInside];
-
-    // CGRectGetHeight and CGRectGetWidth return portrait orientation bounds,
-    // but we need to work on landscape one. That's why I replaced them.
-    viewWidth = CGRectGetHeight(self.view.bounds);
-    viewHeight = CGRectGetWidth(self.view.bounds); // Fix height for status bar
-
-    ballStartPosition = CGPointMake(16, 160);
-
-    curTime = 0;
-    sumTime = 0;
-
-    curTouches = 0;
-    sumTouches = 0;
-    
-//    mazeView.maze = maze;
-
-    if (maze == nil) {
-        maze = [self loadMaze];
-    }
-    [self mazeView].maze = maze;
-    
-//    NSLog(@"Before set maze");
-//    [(MazeView *)self.view setMaze:maze];
-//    NSLog(@"After set maze");
-    
-    motionManager = [[CMMotionManager alloc] init];
-
-    if (motionManager.accelerometerAvailable) {
-        motionManager.accelerometerUpdateInterval = 1.0f / 60.0f;
-        [motionManager startAccelerometerUpdates];
-    } else {
-        noAccelerometerLabel.text = @"No accelerometer";
-    }
-
-    ballCenter = ballStartPosition;
-    ballView.center = ballCenter;
-    NSLog(@"x = %f, y = %f", ballCenter.x, ballCenter.y);
-
-    databaseManager = [[DatabaseManager alloc] init];
-    [databaseManager createEditableCopyOfDatabaseIfNeeded];
-    [databaseManager initializeDatabase];
+  
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -274,7 +282,7 @@ const CGFloat statusBarWidth = 32;
         if ((nextPos.x != x || nextPos.y != y) &&    // touched
             (prevPos.x != x || prevPos.y != y)) {      // not to count multiple touches when the ball stays
             curTouches += 1;
-//            [touchLabel setText:[NSString stringWithFormat:@"Touches: %ld", curTouches]];
+            [touchLabel setText:[NSString stringWithFormat:@"Touches: %ld", curTouches]];
         }
 
         ballCenter = CGPointMake(x, y);
@@ -290,7 +298,7 @@ const CGFloat statusBarWidth = 32;
                                                  andTouches:sumTouches andMood:mood
                                                 andDatabase:databaseManager.database];
             [databaseManager.records addObject:record];
-            NSString *message = [NSString stringWithFormat:@"Your time is %d and we think that your mood is %@",sumTime,
+            NSString *message = [NSString stringWithFormat:@"Your time is %d and we think that your mood is %@", sumTime,
                             [databaseManager mood:sumTouches time:sumTime]];
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congrats"
                                                             message:message
@@ -383,9 +391,13 @@ const CGFloat statusBarWidth = 32;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (IBAction)returned:(UIStoryboardSegue *)segue {
+//    [self dismissViewControllerAnimated:YES];
+    NSLog(@"Returned. Mood: %@", mood);
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"showResults"])
-    {
+    if ([segue.identifier isEqualToString:@"showResults"]) {
         UINavigationController *navigationController =
                 segue.destinationViewController;
 
@@ -396,12 +408,19 @@ const CGFloat statusBarWidth = 32;
         recordTableViewController.delegate = self;
         recordTableViewController.results = databaseManager.records;
     }
+    
+    if ([segue.identifier isEqualToString:@"changeMood"]) {
+        NSLog(@"calling change mood");
+        AskAgainViewController *asker = (AskAgainViewController *) segue.destinationViewController;
+        asker.mood = self.mood;
+        NSLog(@"asker.mood = self.mood = %@", mood);
+        asker.delegate = self;
+    }
 }
 
 #pragma mark - RecordTableViewControllerDelegate
 - (void)recordTableViewControllerDidCancel:
-        (RecordTableViewController *)controller
-{
+        (RecordTableViewController *)controller {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
