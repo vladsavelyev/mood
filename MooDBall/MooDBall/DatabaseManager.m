@@ -62,9 +62,10 @@
         total[[[dictionary objectForKey:(record.mood)] intValue]] ++;
     }
     for (int i = 0; i < dictionary.count; ++i) {
-        touches[i] =  1.0 * touches[i] / total[i];
+        if (total[i])
+            touches[i] =  1.0 * touches[i] / total[i];
     }
-    double rtouches[4];
+    double rtouches[4] = {0,0,0,0};
     double minto = fabs(touches[0] - (to + 1) * (ti + 1));
     int mintoN = 0;
     for (int i = 0; i < dictionary.count; ++i) {

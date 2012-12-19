@@ -48,20 +48,11 @@ const CGFloat statusBarWidth = 32;
     [self.delegate viewControllerDidCancel:self];
 }
 
-- (void) configure {
-    [self configView];
-}
-
 - (Maze *)loadMaze {
     CGFloat width = viewWidth / BLOCK_WIDTH;
     CGFloat height = viewHeight / BLOCK_HEIGHT;
 
     if (maze == Nil) {
-//        NSEntityDescription * entityDescription = [NSEntityDescription entityForName:@"MazeEntity" inManagedObjectContext:managedObjectContext];
-        
-//        self.mazeEntity = (MazeEntity *)[[NSManagedObject alloc] initWithEntity:entityDescription     insertIntoManagedObjectContext:managedObjectContext];
-//        [mazeEntity setValue:[NSDate date] forKey:@"timeStamp"];
-        
         maze = [[Maze alloc] initWithWidth: (size_t) width andHeight: (size_t) height andEmptyEntity: self.mazeEntity];
         maze.managedObjectContext = managedObjectContext;
         
@@ -87,13 +78,12 @@ const CGFloat statusBarWidth = 32;
 
 - (void)startHandler {
     if ([startButton.titleLabel.text isEqualToString:@"Start"]) {
-        updateTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f / 60.0f
+        updateTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f / 100.0f
                                                        target:self
                                                      selector:@selector(accelerometerUpdate)
                                                      userInfo:nil
                                                       repeats:YES];
         curTime = 0;
-        curTouches = 0;
 
         [timeLabel setText:@"Time: 0"];
         [touchLabel setText:@"Touches: 0"];
@@ -117,17 +107,6 @@ const CGFloat statusBarWidth = 32;
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
     }
 }
-
-//- (void)loadView {
-//    [super loadView];
-//    
-//    [self.view addSubview:ballView];
-
-//    CGRect frame = [[UIScreen mainScreen] applicationFrame];
-//    CGRect frame2 = [[UIScreen mainScreen] applicationFrame];
-//    self.view = [[UIView alloc] initWithFrame:frame];
-//    self.mazeView = [[MazeView alloc] initWithFrame:frame2];
-//    [self.view addSubview:self.mazeView];
 //}
 
 - (void) configView {
@@ -137,8 +116,15 @@ const CGFloat statusBarWidth = 32;
     // but we need to work on landscape one. That's why I replaced them.
     viewWidth = CGRectGetHeight(self.view.bounds);
     viewHeight = CGRectGetWidth(self.view.bounds); // Fix height for status bar
-    
-    ballStartPosition = CGPointMake(16, 160);
+
+    ballView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GreenBall.png"]];
+    [self.view addSubview:ballView];
+    ballView.contentMode = UIViewContentModeScaleAspectFit;
+    CGRect frame = ballView.frame;
+        frame.size.width = 40;
+        frame.size.height = 40;
+    ballView.frame = frame;
+    ballStartPosition = CGPointMake(25, 160);
     
     curTime = 0;
     sumTime = 0;
@@ -146,21 +132,15 @@ const CGFloat statusBarWidth = 32;
     curTouches = 0;
     sumTouches = 0;
     
-    //    mazeView.maze = maze;
-    
     if (maze == nil) {
         [self loadMaze];
     }
     [self mazeView].maze = maze;
     
-    //    NSLog(@"Before set maze");
-    //    [(MazeView *)self.view setMaze:maze];
-    //    NSLog(@"After set maze");
-    
     motionManager = [[CMMotionManager alloc] init];
     
     if (motionManager.accelerometerAvailable) {
-        motionManager.accelerometerUpdateInterval = 1.0f / 60.0f;
+        motionManager.accelerometerUpdateInterval = 1.0f / 100.0f;
         [motionManager startAccelerometerUpdates];
     } else {
         noAccelerometerLabel.text = @"No accelerometer";
@@ -176,17 +156,11 @@ const CGFloat statusBarWidth = 32;
 }
 
 - (void)viewDidLoad {
-//    [self.view addSubview:ballView];
-
     NSLog(@"Before super viewDidLoad");
     [super viewDidLoad];
     NSLog(@"After super viewDidLoad");
     
     [self configView];
-    
-//    [self.view addSubview:ballView];
-    
-//    [startButton setTitle:@"Stop" forState:UIControlStateNormal];
   
 }
 
@@ -212,9 +186,6 @@ const CGFloat statusBarWidth = 32;
 }
 
 - (void)accelerometerUpdate {
-    NSLog(@"x = %f, y = %f", ballView.center.x, ballView.center.y);
-    [ballView setCenter: ballCenter];
-
     long t = time(0);
     if (curTime != 0) sumTime += (t - curTime);
     curTime = t;
@@ -269,7 +240,7 @@ const CGFloat statusBarWidth = 32;
 //        if (delta.x > 0 && del) {
 //
 //        }
-
+/*
         if ([self checkIfMazeInPoint:CGPointMake(x + diagonalPiece, y + diagonalPiece)] ||   // right-down
             [self checkIfMazeInPoint:CGPointMake(x + diagonalPiece, y - diagonalPiece)] ||   // right-up
             [self checkIfMazeInPoint:CGPointMake(x - diagonalPiece, y + diagonalPiece)] ||   // left-down
@@ -277,15 +248,18 @@ const CGFloat statusBarWidth = 32;
             x -= delta.x;
             y -= delta.y;
         }
-
-
+ */
+        [ballView stopAnimating];
         if ((nextPos.x != x || nextPos.y != y) &&    // touched
             (prevPos.x != x || prevPos.y != y)) {      // not to count multiple touches when the ball stays
             curTouches += 1;
-            [touchLabel setText:[NSString stringWithFormat:@"Touches: %ld", curTouches]];
+            touchLabel.text =  [NSString stringWithFormat:@"Touches: %ld", curTouches];
         }
+        [ballView startAnimating];
 
+        NSLog(@"x = %f, y = %f", x, y);
         ballCenter = CGPointMake(x, y);
+        [ballView setCenter:ballCenter];
 
         if (ballCenter.x + ballRadius == viewWidth && ballCenter.y - ballRadius == 0) {   // Finish point
 
@@ -295,11 +269,11 @@ const CGFloat statusBarWidth = 32;
             NSString * strDate = [date_format stringFromDate: date];
 
             Record *record = [[Record alloc] initWithParams:strDate andTime:sumTime
-                                                 andTouches:sumTouches andMood:mood
+                                                 andTouches:curTouches andMood:mood
                                                 andDatabase:databaseManager.database];
             [databaseManager.records addObject:record];
             NSString *message = [NSString stringWithFormat:@"Your time is %d and we think that your mood is %@", sumTime,
-                            [databaseManager mood:sumTouches time:sumTime]];
+                            [databaseManager mood:curTouches time:sumTime]];
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congrats"
                                                             message:message
                                                            delegate:nil
@@ -309,68 +283,11 @@ const CGFloat statusBarWidth = 32;
 
             [self stop];
             sumTime = 0;
-            sumTouches = 0;
+            curTouches = 0;
+            ballCenter = ballStartPosition;
+            ballView.center = ballStartPosition;
         }
     }
-
-    [ballView setCenter: ballCenter];
-    [ballView setNeedsDisplay];
-}
-
-- (CGPoint)correctIfMazeInPoint: (CGPoint) point
-                withinTheRadius: (CGFloat) radius
-               whereTheOldPosIs: (CGPoint) oldPos {
-    CGFloat diagonalPiece = (CGFloat) (radius / sqrt(2));
-
-    NSArray *pointsInCircleToCheck = [NSArray arrayWithObjects:
-            [NSValue valueWithCGPoint:CGPointMake(point.x + radius, point.y)],
-            [NSValue valueWithCGPoint:CGPointMake(point.x, point.y + radius)],
-            [NSValue valueWithCGPoint:CGPointMake(point.x - radius, point.y)],
-            [NSValue valueWithCGPoint:CGPointMake(point.x, point.y - radius)],
-            [NSValue valueWithCGPoint:CGPointMake(point.x + diagonalPiece, point.y + diagonalPiece)],
-            [NSValue valueWithCGPoint:CGPointMake(point.x - diagonalPiece, point.y + diagonalPiece)],
-            [NSValue valueWithCGPoint:CGPointMake(point.x - diagonalPiece, point.y - diagonalPiece)],
-            [NSValue valueWithCGPoint:CGPointMake(point.x + diagonalPiece, point.y - diagonalPiece)],
-            nil
-    ];
-
-    NSArray *pointsCorrected = [NSArray arrayWithObjects:
-            [NSValue valueWithCGPoint:CGPointMake(point.x - radius, point.y)],
-//                    [NSValue valueWithCGPoint:CGPointMake(point.x - (((int) point.x) % BLOCK_WIDTH), point.y)],
-            [NSValue valueWithCGPoint:CGPointMake(point.x, point.y - radius)],
-            [NSValue valueWithCGPoint:CGPointMake(point.x + radius, point.y)],
-            [NSValue valueWithCGPoint:CGPointMake(point.x, point.y + radius)],
-            [NSValue valueWithCGPoint:CGPointMake(point.x - diagonalPiece, point.y - diagonalPiece)],
-            [NSValue valueWithCGPoint:CGPointMake(point.x + diagonalPiece, point.y - diagonalPiece)],
-            [NSValue valueWithCGPoint:CGPointMake(point.x + diagonalPiece, point.y + diagonalPiece)],
-            [NSValue valueWithCGPoint:CGPointMake(point.x - diagonalPiece, point.y + diagonalPiece)],
-            nil
-    ];
-
-//    [pointsInCircleToCheck addObject:[NSValue valueWithCGPoint:point]];
-//    [pointsInCircleToCheck addObject:[NSValue valueWithCGPoint:CGPointMake(point.x + ballHalfWidth, point.y)]];
-//    [pointsInCircleToCheck addObject:[NSValue valueWithCGPoint:CGPointMake(point.x, point.y + ballHalfWidth)]];
-//    [pointsInCircleToCheck addObject:[NSValue valueWithCGPoint:CGPointMake(point.x - ballHalfWidth, point.y)]];
-//    [pointsInCircleToCheck addObject:[NSValue valueWithCGPoint:CGPointMake(point.x, point.y - ballHalfWidth)]];
-//
-//
-//    [pointsInCircleToCheck addObject:[NSValue valueWithCGPoint:CGPointMake(point.x + piece, point.y + piece)]];
-//    [pointsInCircleToCheck addObject:[NSValue valueWithCGPoint:CGPointMake(point.x - piece, point.y + piece)]];
-//    [pointsInCircleToCheck addObject:[NSValue valueWithCGPoint:CGPointMake(point.x - piece, point.y - piece)]];
-//    [pointsInCircleToCheck addObject:[NSValue valueWithCGPoint:CGPointMake(point.x + piece, point.y - piece)]];
-
-//
-//    for (NSUInteger i = 0; i < [pointsInCircleToCheck count]; i++) {
-//        CGPoint value;
-//        [[pointsInCircleToCheck objectAtIndex:i] getValue:&value];
-//        if([self checkIfMazeInPoint:value] && ![self checkIfMazeInPoint point]) {
-//            CGPoint corrected;
-//            [[pointsCorrected objectAtIndex:i] getValue:&corrected];
-//            return corrected;
-//        }
-//    }
-
-    return point;
 }
 
 - (BOOL) checkIfMazeInPoint: (CGPoint) point {

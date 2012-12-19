@@ -139,7 +139,6 @@
     
     [self.viewController setMood:mood];
     [self.viewController setMazeEntity:entity];
-    [self.viewController configure];
     [self.navigationController pushViewController:self.viewController animated:YES];
 }
 
