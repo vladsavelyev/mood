@@ -7,12 +7,14 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-#import "MazeModel.h"
+#import "DatabaseManager.h"
+#import "Record.h"
 
 @interface MooDTests : SenTestCase {
-    MazeModel * maze;
-    int width;
-    int height;
+    NSArray*  moods;
+    NSArray*  keys;
+    NSDictionary *dictionary;
+    DatabaseManager *databaseManager;
 }
 
 @end

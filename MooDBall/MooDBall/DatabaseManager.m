@@ -58,17 +58,17 @@
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:moods
                                                            forKeys:keys];
     for (Record *record in records) {
-        touches[[[dictionary objectForKey:(record.mood)] intValue]] += record.touches * 1.0/ record.time;
+        touches[[[dictionary objectForKey:(record.mood)] intValue]] += (record.touches + 1) * record.time;
         total[[[dictionary objectForKey:(record.mood)] intValue]] ++;
     }
     for (int i = 0; i < dictionary.count; ++i) {
-        touches[i] /=  total[i];
+        touches[i] =  1.0 * touches[i] / total[i];
     }
     double rtouches[4];
     double minto = 0;
     int mintoN = 0;
     for (int i = 0; i < dictionary.count; ++i) {
-        rtouches[i] = touches[i] - to * 1.0 / ti;
+        rtouches[i] = touches[i] - (to + 1) * ti;
         if (fabs(rtouches[i]) < minto) {
             mintoN = i;
             minto = fabs(rtouches[i]);
