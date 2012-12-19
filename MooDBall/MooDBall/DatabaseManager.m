@@ -55,20 +55,20 @@
     NSArray*  moods  = [NSArray arrayWithObjects:@"angry", @"sad", @"normal", @"happy", nil];
     NSArray*  keys  = [NSArray arrayWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1],
                                                 [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], nil];
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:moods
-                                                           forKeys:keys];
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:keys
+                                                           forKeys:moods];
     for (Record *record in records) {
-        touches[[[dictionary objectForKey:(record.mood)] intValue]] += (record.touches + 1) * record.time;
+        touches[[[dictionary objectForKey:(record.mood)] intValue]] += (record.touches + 1) * (record.time + 1);
         total[[[dictionary objectForKey:(record.mood)] intValue]] ++;
     }
     for (int i = 0; i < dictionary.count; ++i) {
         touches[i] =  1.0 * touches[i] / total[i];
     }
     double rtouches[4];
-    double minto = 0;
+    double minto = fabs(touches[0] - (to + 1) * (ti + 1));
     int mintoN = 0;
     for (int i = 0; i < dictionary.count; ++i) {
-        rtouches[i] = touches[i] - (to + 1) * ti;
+        rtouches[i] = touches[i] - (to + 1) * (ti + 1);
         if (fabs(rtouches[i]) < minto) {
             mintoN = i;
             minto = fabs(rtouches[i]);

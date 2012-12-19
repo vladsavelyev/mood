@@ -52,6 +52,9 @@
 
 - (void) testSettingAndGetting {
     STAssertEquals([databaseManager mood:19 time:11], @"angry", @"Should be angry");
+    STAssertEquals([databaseManager mood:17 time:19], @"sad", @"Should be sad");
+    STAssertEquals([databaseManager mood:12 time:8], @"normal", @"Should be normal");
+    STAssertEquals([databaseManager mood:7 time:2], @"happy", @"Should be happy");
 }
 
 
