@@ -291,7 +291,11 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [[object valueForKey:@"timeStamp"] description];
+    NSDate *date = [object valueForKey:@"timeStamp"];
+    NSDateFormatter * date_format = [[NSDateFormatter alloc] init];
+    [date_format setDateFormat: @"dd/MM HH:mm"];
+    NSString * strDate = [date_format stringFromDate: date];
+    cell.textLabel.text = strDate;
 //    cell.textLabel.text = [NSString stringWithFormat:@"%d", indexPath.row];
 }
 
