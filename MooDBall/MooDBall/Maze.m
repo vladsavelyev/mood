@@ -11,6 +11,7 @@
 
 @implementation Maze
 
+@synthesize timeStamp;
 @synthesize width;
 @synthesize height;
 @synthesize data;
@@ -19,7 +20,6 @@
 
 - (id) initWithWidth: (size_t)theWidth andHeight: (size_t)theHeight andEmptyEntity:(MazeEntity *)emptyEntity {
     if (self = [super init]) {
-        entity = emptyEntity;
         width = theWidth;
         height = theHeight;
         data = malloc(width * height * sizeof(BOOL));
@@ -27,8 +27,11 @@
             data[i] = NO;
         }
         
+        entity = emptyEntity;
         entity.width = (int16_t)width;
         entity.height = (int16_t)height;
+        
+        timeStamp = emptyEntity.timeStamp;
     }
     
     return self;
@@ -37,10 +40,11 @@
 - (id) initWithEntity: (MazeEntity *) theEntity {
     if (self = [super init]) {
         entity = theEntity;
-        width = entity.width;
-        height = entity.height;
+        width = theEntity.width;
+        height = theEntity.height;
+        timeStamp = theEntity.timeStamp;
         data = malloc(width * height * sizeof(BOOL));
-        [entity.data getBytes:data];
+        [theEntity.data getBytes:data];
     }
     return self;
 }

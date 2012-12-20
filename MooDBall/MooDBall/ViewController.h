@@ -19,10 +19,7 @@
 - (void)viewControllerDidCancel:
         (ViewController *)controller;
 @end
-@interface ViewController : UIViewController {
-    Maze *_maze;
-    MazeEntity *_mazeEntity;
-        
+@interface ViewController : UIViewController {        
     IBOutlet UIImageView *ballView;
     IBOutlet MazeView *mazeView;
     
@@ -70,9 +67,7 @@
 
 //@property (nonatomic, retain) IBOutlet UIButton *chooseMood;
 
-- (Maze *)loadMaze;
-
-- (void) configure;
+- (void) reInit;
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender;
 

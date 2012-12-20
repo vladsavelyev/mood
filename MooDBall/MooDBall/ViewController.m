@@ -49,19 +49,28 @@ const CGFloat TOP_PANELS_HEIGHT = 40;
     [self.delegate viewControllerDidCancel:self];
 }
 
-- (Maze *)loadMaze {
+- (void) loadMaze {
     CGFloat width = viewWidth / BLOCK_WIDTH;
     CGFloat height = viewHeight / BLOCK_HEIGHT;
 
-    if (maze == Nil) {
+    if (!maze) {
         maze = [[Maze alloc] initWithWidth: (size_t) width andHeight: (size_t) height andEmptyEntity: self.mazeEntity];
-        maze.managedObjectContext = managedObjectContext;
-        
         NSError *error = nil;
         if (![managedObjectContext save:&error]) {
             NSLog(@"error saving maze");
         }
+    } else {
+        maze = [[Maze alloc] initWithEntity: self.mazeEntity];
+        if (maze.height == 0) {
+            maze.height = height;
+        }
+        if (maze.width == 0) {
+            maze.width = width;
+        }
     }
+    maze.managedObjectContext = managedObjectContext;
+     
+    
     size_t blocks_bottom_panels_width = 0;
     if (fmod(BOTTOM_PANELS_HEIGHT, BLOCK_WIDTH) == 0) {
         blocks_bottom_panels_width = (size_t) (BOTTOM_PANELS_HEIGHT / BLOCK_WIDTH);
@@ -125,35 +134,17 @@ const CGFloat TOP_PANELS_HEIGHT = 40;
 }
 //}
 
-- (void) configView {
-    [startButton addTarget:self action:@selector(startHandler) forControlEvents:UIControlEventTouchUpInside];
-    
-    // CGRectGetHeight and CGRectGetWidth return portrait orientation bounds,
-    // but we need to work on landscape one. That's why I replaced them.
-    viewWidth = CGRectGetHeight(self.mazeView.bounds);
-    viewHeight = CGRectGetWidth(self.mazeView.bounds); // Fix height for status bar
-
-    ballView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GreenBall.png"]];
-    [self.mazeView addSubview:ballView];
-    ballView.contentMode = UIViewContentModeScaleAspectFit;
-    CGRect frame = ballView.frame;
-        frame.size.width = 40;
-        frame.size.height = 40;
-    ballView.frame = frame;
-    ballStartPosition = CGPointMake(20, 160);
-    
+- (void) reInit {
     curTime = 0;
     sumTime = 0;
     
     curTouches = 0;
     sumTouches = 0;
     
-    if (maze == nil) {
-        [self loadMaze];
-    }
-    [self mazeView].maze = maze;
+    [self loadMaze];
     
-    motionManager = [[CMMotionManager alloc] init];
+    [self mazeView].maze = maze;
+    [[self mazeView] setNeedsDisplay];
     
     if (motionManager.accelerometerAvailable) {
         motionManager.accelerometerUpdateInterval = 1.0f / 100.0f;
@@ -165,10 +156,6 @@ const CGFloat TOP_PANELS_HEIGHT = 40;
     ballCenter = ballStartPosition;
     ballView.center = ballCenter;
     NSLog(@"x = %f, y = %f", ballCenter.x, ballCenter.y);
-    
-    databaseManager = [[DatabaseManager alloc] init];
-    [databaseManager createEditableCopyOfDatabaseIfNeeded];
-    [databaseManager initializeDatabase];
 }
 
 - (void)viewDidLoad {
@@ -176,8 +163,29 @@ const CGFloat TOP_PANELS_HEIGHT = 40;
     [super viewDidLoad];
     NSLog(@"After super viewDidLoad");
     
-    [self configView];
-  
+    [startButton addTarget:self action:@selector(startHandler) forControlEvents:UIControlEventTouchUpInside];
+    
+    // CGRectGetHeight and CGRectGetWidth return portrait orientation bounds,
+    // but we need to work on landscape one. That's why I replaced them.
+    viewWidth = CGRectGetHeight(self.mazeView.bounds);
+    viewHeight = CGRectGetWidth(self.mazeView.bounds); // Fix height for status bar
+    
+    ballView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GreenBall.png"]];
+    [self.mazeView addSubview:ballView];
+    ballView.contentMode = UIViewContentModeScaleAspectFit;
+    CGRect frame = ballView.frame;
+    frame.size.width = 40;
+    frame.size.height = 40;
+    ballView.frame = frame;
+    ballStartPosition = CGPointMake(20, 160);
+    
+    motionManager = [[CMMotionManager alloc] init];
+    
+    [self reInit];
+    
+    databaseManager = [[DatabaseManager alloc] init];
+    [databaseManager createEditableCopyOfDatabaseIfNeeded];
+    [databaseManager initializeDatabase];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -277,7 +285,7 @@ const CGFloat TOP_PANELS_HEIGHT = 40;
         ballCenter = CGPointMake(x, y);
         [ballView setCenter:ballCenter];
 
-        if (ballCenter.x + ballRadius == viewWidth && ballCenter.y - ballRadius == 0) {   // Finish point
+        if (ballCenter.x + ballRadius == viewWidth) {   // Finish point
 
             NSDate *date = [NSDate date];
             NSDateFormatter * date_format = [[NSDateFormatter alloc] init];

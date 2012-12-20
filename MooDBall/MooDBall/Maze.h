@@ -11,10 +11,12 @@
 @interface Maze : NSObject {
     size_t width;
     size_t height;
+    NSDate * timeStamp;
     BOOL * data;
     MazeEntity * entity;
 }
 
+@property (nonatomic) NSDate * timeStamp;
 @property (atomic) size_t width;
 @property (atomic) size_t height;
 @property (nonatomic) BOOL * data;

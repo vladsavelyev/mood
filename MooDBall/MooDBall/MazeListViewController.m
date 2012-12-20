@@ -134,12 +134,14 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    MazeEntity *entity = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-    Maze * maze = [[Maze alloc] initWithEntity:entity];
+    MazeEntity * entity = [[self fetchedResultsController] objectAtIndexPath:indexPath];
     
     [self.viewController setMood:mood];
     [self.viewController setMazeEntity:entity];
     [self.viewController setManagedObjectContext:managedObjectContext];
+    if ([self.viewController isViewLoaded]) {
+        [self.viewController reInit];
+    }
     [self.navigationController pushViewController:self.viewController animated:YES];
 }
 
