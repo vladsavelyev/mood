@@ -16,8 +16,8 @@
     if (self.maze) {
         CGContextRef context = UIGraphicsGetCurrentContext();
     
-        CGFloat widthInPixels = CGRectGetWidth(self.bounds);
-        CGFloat heightInPixels = CGRectGetHeight(self.bounds);
+        CGFloat widthInPixels = 480; //CGRectGetWidth(self.bounds);
+        CGFloat heightInPixels = 320; //CGRectGetHeight(self.bounds);
     
         CGFloat blockWidth = widthInPixels / maze.width;
         CGFloat blockHeight = heightInPixels / maze.height;

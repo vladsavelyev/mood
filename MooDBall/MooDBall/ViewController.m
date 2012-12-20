@@ -33,7 +33,8 @@
 
 const CGFloat BLOCK_WIDTH = 20;
 const CGFloat BLOCK_HEIGHT = 20;
-const CGFloat statusBarWidth = 32;
+const CGFloat BOTTOM_PANELS_HEIGHT = 80;
+const CGFloat TOP_PANELS_HEIGHT = 40;
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -61,16 +62,31 @@ const CGFloat statusBarWidth = 32;
             NSLog(@"error saving maze");
         }
     }
-    
-    size_t statusBarBlocksWidth = 0;
-    if (fmod(statusBarWidth, BLOCK_WIDTH) == 0) {
-        statusBarBlocksWidth = (size_t) (statusBarWidth / BLOCK_WIDTH);
+    size_t blocks_bottom_panels_width = 0;
+    if (fmod(BOTTOM_PANELS_HEIGHT, BLOCK_WIDTH) == 0) {
+        blocks_bottom_panels_width = (size_t) (BOTTOM_PANELS_HEIGHT / BLOCK_WIDTH);
     } else {
-        statusBarBlocksWidth = (size_t) ((size_t) statusBarWidth / BLOCK_WIDTH + 1);
+        blocks_bottom_panels_width = (size_t) ((size_t) BOTTOM_PANELS_HEIGHT / BLOCK_WIDTH + 1);
     }
-
+    
+    //    NSLog(@"BOTTOM_PANELS_HEIGHT: %@",       [BOTTOM_PANELS_HEIGHT       localizedDescription]);
+    //    NSLog(@"blocks_bottom_panels_width: %@", [blocks_bottom_panels_width localizedDescription]);
+    
+    size_t blocks_top_panels_width = 0;
+    if (fmod(TOP_PANELS_HEIGHT, BLOCK_WIDTH) == 0) {
+        blocks_top_panels_width = (size_t) (TOP_PANELS_HEIGHT / BLOCK_WIDTH);
+    } else {
+        blocks_top_panels_width = (size_t) ((size_t) TOP_PANELS_HEIGHT / BLOCK_WIDTH + 1);
+    }
+    
+    //    NSLog(@"TOP_PANELS_HEIGHT: %@",       [TOP_PANELS_HEIGHT       localizedDescription]);
+    //    NSLog(@"blocks_top_panels_width: %@", [blocks_top_panels_width localizedDescription]);
+    
     for (size_t x = 0; x < width; x++) {
-        for (size_t y = (size_t) (height - statusBarBlocksWidth); y < height; y++) {
+        for (size_t y = (size_t) (height - blocks_bottom_panels_width); y < height; y++) {
+            [maze setFilledAtX:x andY:y];
+        }
+        for (size_t y = (size_t) (0); y < blocks_top_panels_width; y++) {
             [maze setFilledAtX:x andY:y];
         }
     }
@@ -114,17 +130,17 @@ const CGFloat statusBarWidth = 32;
     
     // CGRectGetHeight and CGRectGetWidth return portrait orientation bounds,
     // but we need to work on landscape one. That's why I replaced them.
-    viewWidth = CGRectGetHeight(self.view.bounds);
-    viewHeight = CGRectGetWidth(self.view.bounds); // Fix height for status bar
+    viewWidth = CGRectGetHeight(self.mazeView.bounds);
+    viewHeight = CGRectGetWidth(self.mazeView.bounds); // Fix height for status bar
 
     ballView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GreenBall.png"]];
-    [self.view addSubview:ballView];
+    [self.mazeView addSubview:ballView];
     ballView.contentMode = UIViewContentModeScaleAspectFit;
     CGRect frame = ballView.frame;
         frame.size.width = 40;
         frame.size.height = 40;
     ballView.frame = frame;
-    ballStartPosition = CGPointMake(25, 160);
+    ballStartPosition = CGPointMake(20, 160);
     
     curTime = 0;
     sumTime = 0;
@@ -177,9 +193,9 @@ const CGFloat statusBarWidth = 32;
 
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInView:self.mazeView];
-
+ 
     size_t x = (size_t) (location.x / BLOCK_WIDTH);
-    size_t y = (size_t) (location.y / BLOCK_HEIGHT);
+    size_t y = (size_t) (location.y / BLOCK_HEIGHT); // (((location.y/320) * (320-32) + 32) / BLOCK_HEIGHT);
 
     [maze setFilledAtX:x andY:y];
     [self.mazeView setNeedsDisplay];
